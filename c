@@ -24,19 +24,19 @@ c() {
         fi
     done
 
-    file="$(echo "$1" | cut -d' ' -f1)"
-    fname="${file%\.c}"
+    fname="$(echo "$1" | cut -d' ' -f1)"
+    binname=$(mktemp /tmp/c.XXX)
 
-    trap "rm -- $fname" SIGINT
+    trap "rm -- $binname" SIGINT
 
-    if cc -O2 -o "$fname" $1; then
+    if cc -O2 -o "$binname" $1; then
         shift
-        PATH=".:$PATH" "$fname" $@
+        (PATH=".:$PATH" exec -a "$fname" "$binname" $@)
+        ret=$?
     fi
-    ret=$?
 
     trap - SIGINT
-    rm -- "$fname"
+    rm -- "$binname"
     return $ret
 }
 
