@@ -31,7 +31,7 @@ c() {
 
     if cc -O2 -o "$binname" $1; then
         shift
-        (PATH=".:$PATH" exec -a "$fname" "$binname" $@)
+        (exec -a "$fname" "$binname" $@)
         ret=$?
     fi
 
