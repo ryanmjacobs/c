@@ -1,3 +1,5 @@
+#!/bin/sh
+
 c() {
     help_msg() {
         echo "Usage: $1 [file.c | compiler_options ...] [arguments]"
