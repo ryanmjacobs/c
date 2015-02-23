@@ -33,6 +33,8 @@ c() {
         shift
         (exec -a "$fname" "$binname" $@)
         ret=$?
+    else
+        ret=1
     fi
 
     trap - SIGINT
