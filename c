@@ -36,7 +36,7 @@ c() {
     ret=$?
 
     trap - SIGINT
-   #rm -- "$fname"
+    rm -- "$fname"
     return $ret
 }
 
