@@ -28,7 +28,7 @@ done
 files="$1"
 
 # comment out the shebangs so the compilers don't complain
-for f in "$files"; do
+for f in $files; do
     if [ -f "$f" ]; then
         sed -i '1!b;s/^#!/\/\/#!/' "$f"
     fi
@@ -40,7 +40,7 @@ binname=$(mktemp /tmp/c.XXX)
 
 cleanup() {
     # uncomment the shebangs
-    for f in "$files"; do
+    for f in $files; do
         if [ -f "$f" ]; then
             sed -i '1!b;s/^\/\/#!/#!/' "$f"
         fi
