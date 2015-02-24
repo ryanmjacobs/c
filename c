@@ -38,7 +38,10 @@ done
 fname="$(echo "$files" | cut -d' ' -f1)"
 binname=$(mktemp /tmp/c.XXX)
 
+clean=false
 cleanup() {
+    [ $clean == "true" ] && return
+
     # uncomment the shebangs
     for f in $files; do
         if [ -f "$f" ]; then
@@ -48,6 +51,8 @@ cleanup() {
 
     # remove the tmp binary
     rm -- "$binname"
+
+    clean=true
 }
 trap cleanup SIGINT
 
