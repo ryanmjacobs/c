@@ -1,13 +1,13 @@
 #!/bin/bash
 
 help_msg() {
-    echo "Usage: $0 \"[file.c] [compiler options]...\" [program arguments]"
+    echo "Usage: $0 [options] [file.c ...] -- [args]"
     echo "Execute C progams from the command line."
     echo
     echo "  Ex: c main.c"
-    echo "  Ex: c main.c arg1 arg2"
-    echo "  Ex: c \"main.c other.c\" arg1 arg2"
-    echo "  Ex: c \"main.c -lncurses\" arg1 arg2"
+    echo "  Ex: c main.c -- arg1 arg2"
+    echo "  Ex: c main.c other.c -- arg1 arg2"
+    echo "  Ex: c main.c -lncurses -- arg1 arg2"
     echo
 }
 
@@ -25,7 +25,8 @@ for arg in "$@"; do
     fi
 done
 
-files="$1"
+files="$(echo $@ | awk -F'--' '{print $1}')"
+args="$(echo $@  | awk -F'--' '{print $2}')"
 
 # comment out the shebangs so the compilers don't complain
 for f in $files; do
@@ -53,8 +54,7 @@ trap cleanup SIGINT
 
 # compile and run
 if cc -O2 -o "$binname" $files; then
-    shift
-    (exec -a "$fname" "$binname" $@)
+    (exec -a "$fname" "$binname" $args)
     ret=$?
 else
     ret=1
