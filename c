@@ -1,13 +1,13 @@
 #!/bin/bash
 
 help_msg() {
-    echo "Usage: $0 [options] [file.c ...] -- [args]"
+    echo "Usage: $0 [options] [file.c ...] -- main.c [args]"
     echo "Execute C progams from the command line."
     echo
     echo "  Ex: c main.c"
-    echo "  Ex: c main.c -- arg1 arg2"
-    echo "  Ex: c main.c other.c -- arg1 arg2"
-    echo "  Ex: c main.c -lncurses -- arg1 arg2"
+    echo "  Ex: c -- main.c arg1 arg2"
+    echo "  Ex: c other.c -- main.c arg1 arg2"
+    echo "  Ex: c -lncurses -- main.c arg1 arg2"
     echo
 }
 
