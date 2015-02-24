@@ -2,13 +2,13 @@
 
 c() {
     help_msg() {
-        echo "Usage: $1 [file.c | compiler_options ...] [arguments]"
+        echo "Usage: $1 \"[file.c] [compiler options]...\" [program arguments]"
         echo "Execute C progams from the command line."
         echo
         echo "  Ex: c main.c"
         echo "  Ex: c main.c arg1 arg2"
-        echo "  Ex: c 'main.c other.c' arg1 arg2"
-        echo "  Ex: c 'main.c -lncurses' arg1 arg2"
+        echo "  Ex: c \"main.c other.c\" arg1 arg2"
+        echo "  Ex: c \"main.c -lncurses\" arg1 arg2"
         echo
     }
 
