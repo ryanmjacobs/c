@@ -1,45 +1,65 @@
-#!/bin/sh
+#!/bin/bash
 
-c() {
-    help_msg() {
-        echo "Usage: $1 \"[file.c] [compiler options]...\" [program arguments]"
-        echo "Execute C progams from the command line."
-        echo
-        echo "  Ex: c main.c"
-        echo "  Ex: c main.c arg1 arg2"
-        echo "  Ex: c \"main.c other.c\" arg1 arg2"
-        echo "  Ex: c \"main.c -lncurses\" arg1 arg2"
-        echo
-    }
+help_msg() {
+    echo "Usage: $0 \"[file.c] [compiler options]...\" [program arguments]"
+    echo "Execute C progams from the command line."
+    echo
+    echo "  Ex: c main.c"
+    echo "  Ex: c main.c arg1 arg2"
+    echo "  Ex: c \"main.c other.c\" arg1 arg2"
+    echo "  Ex: c \"main.c -lncurses\" arg1 arg2"
+    echo
+}
 
-    if [ $# -eq 0 ]; then
+# help if we have no arguments
+if [ $# -eq 0 ]; then
+    help_msg $FUNCNAME
+    exit 2
+fi
+
+# help if we get the flags
+for arg in "$@"; do
+    if [ "$arg" == "--help" ] || [ "$arg" == "-h" ]; then
         help_msg $FUNCNAME
-        return 2
+        exit 2
     fi
+done
 
-    for arg in "$@"; do
-        if [ "$arg" == "--help" ] || [ "$arg" == "-h" ]; then
-            help_msg $FUNCNAME
-            return 2
+files="$1"
+
+# comment out the shebangs so the compilers don't complain
+for f in "$files"; do
+    if [ -f "$f" ]; then
+        sed -i '1!b;s/^#!/\/\/#!/' "$f"
+    fi
+done
+
+# fname will become argv[0]
+fname="$(echo "$files" | cut -d' ' -f1)"
+binname=$(mktemp /tmp/c.XXX)
+
+cleanup() {
+    # uncomment the shebangs
+    for f in "$files"; do
+        if [ -f "$f" ]; then
+            sed -i '1!b;s/^\/\/#!/#!/' "$f"
         fi
     done
 
-    fname="$(echo "$1" | cut -d' ' -f1)"
-    binname=$(mktemp /tmp/c.XXX)
-
-    trap "rm -- $binname" SIGINT
-
-    if cc -O2 -o "$binname" $1; then
-        shift
-        (exec -a "$fname" "$binname" $@)
-        ret=$?
-    else
-        ret=1
-    fi
-
-    trap - SIGINT
+    # remove the tmp binary
     rm -- "$binname"
-    return $ret
 }
+trap cleanup SIGINT
 
-c $@
+# compile and run
+if cc -O2 -o "$binname" $files; then
+    shift
+    (exec -a "$fname" "$binname" $@)
+    ret=$?
+else
+    ret=1
+fi
+
+trap - SIGINT
+cleanup
+exit $ret
