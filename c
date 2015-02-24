@@ -17,7 +17,7 @@ if [ $# -eq 0 ]; then
     exit 2
 fi
 
-# help if we get the flags
+# help if we got the flags
 for arg in "$@"; do
     if [ "$arg" == "--help" ] || [ "$arg" == "-h" ]; then
         help_msg $FUNCNAME
@@ -25,23 +25,33 @@ for arg in "$@"; do
     fi
 done
 
-files="$(echo $@ | awk -F'--' '{print $1}')"
-args="$(echo $@  | awk -F'--' '{print $2}')"
+if [ $# -eq 1 ]; then
+    comp="$@"
+    args=""
+    fname="$@"
+else
+    comp="$(echo $@ | awk -F'--' '{print $1}')"
+    args="$(echo $@ | awk -F'--' '{print $2}')"
+
+    # fname will become argv[0]
+    fname="$(echo $args | cut -d' ' -f1)"
+     args="$(echo $args | cut -d' ' -f2-)"
+     comp="$(echo $comp $fname)"
+
+    # in case we have no arguments
+    [ "$args" == "$fname" ] && args=""
+fi
 
 # comment out the shebangs so the compilers don't complain
-for f in $files; do
+for f in $comp; do
     if [ -f "$f" ]; then
         sed -i '1!b;s/^#!/\/\/#!/' "$f"
     fi
 done
 
-# fname will become argv[0]
-fname="$(echo "$files" | cut -d' ' -f1)"
-binname=$(mktemp /tmp/c.XXX)
-
 cleanup() {
     # uncomment the shebangs
-    for f in $files; do
+    for f in $comp; do
         if [ -f "$f" ]; then
             sed -i '1!b;s/^\/\/#!/#!/' "$f"
         fi
@@ -53,7 +63,8 @@ cleanup() {
 trap cleanup SIGINT
 
 # compile and run
-if cc -O2 -o "$binname" $files; then
+binname=$(mktemp /tmp/c.XXX)
+if cc -O2 -o "$binname" $comp; then
     (exec -a "$fname" "$binname" $args)
     ret=$?
 else
