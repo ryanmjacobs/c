@@ -1,7 +1,7 @@
 #!/bin/bash
 
 help_msg() {
-    echo "Usage: $0 \"[file.c] [compiler options]...\" [program arguments]"
+    echo "Usage: $0 [file.c ... | compiler_options ...] [program arguments]"
     echo "Execute C progams from the command line."
     echo
     echo "  Ex: c main.c"
