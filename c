@@ -25,24 +25,24 @@ for arg in "$@"; do
     fi
 done
 
-files="$1"
+comp="$1"
 
 # comment out the shebangs so the compilers don't complain
-for f in $files; do
+for f in $comp; do
     if [ -f "$f" ]; then
         sed -i '1!b;s/^#!/\/\/#!/' "$f"
     fi
 done
 
 # fname will become argv[0]
-fname="$(echo "$files" | cut -d' ' -f1)"
+fname="$(echo $comp | cut -d' ' -f1)"
 
 clean=false
 cleanup() {
     [ $clean == "true" ] && return
 
     # uncomment the shebangs
-    for f in $files; do
+    for f in $comp; do
         if [ -f "$f" ]; then
             sed -i '1!b;s/^\/\/#!/#!/' "$f"
         fi
@@ -57,7 +57,7 @@ trap cleanup SIGINT
 
 # compile and run
 binname=$(mktemp /tmp/c.XXX)
-if cc -O2 -o "$binname" $files; then
+if cc -O2 -o "$binname" $comp; then
     shift
     (exec -a "$fname" "$binname" $@)
     ret=$?
