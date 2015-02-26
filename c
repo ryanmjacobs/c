@@ -36,7 +36,6 @@ done
 
 # fname will become argv[0]
 fname="$(echo "$files" | cut -d' ' -f1)"
-binname=$(mktemp /tmp/c.XXX)
 
 clean=false
 cleanup() {
@@ -57,6 +56,7 @@ cleanup() {
 trap cleanup SIGINT
 
 # compile and run
+binname=$(mktemp /tmp/c.XXX)
 if cc -O2 -o "$binname" $files; then
     shift
     (exec -a "$fname" "$binname" $@)
