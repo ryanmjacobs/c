@@ -21,7 +21,7 @@ fi
 for arg in "$@"; do
     if [ "$arg" == "--help" ] || [ "$arg" == "-h" ]; then
         help_msg $FUNCNAME
-        exit 2
+        exit 0
     fi
 done
 
