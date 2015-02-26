@@ -25,18 +25,19 @@ for arg in "$@"; do
     fi
 done
 
-# will pass to compiler
-comp="$1"
+# $comp  are the files and options that are passed to the compiler
+# $fname will become the programs argv[0]
+for arg in $1; do
+    if [ "$arg" == "--" ]; then
+        fname="$2"
+        comp+=" $2"
+    else
+        comp+=" $arg"
+    fi
+done
 
-# fname will become argv[0]
-if [ "$(echo $1 | rev | cut -d' ' -f1 | rev)" == "-s" ]; then
-    # we're using the shebang
-    fname="$2"
-    comp+=" $2"
-else
-    # running from CLI
-    fname="$(echo $comp | cut -d' ' -f1)"
-fi
+# if we're running CLI (and not from the shebang)
+[ -z "$fname" ] && fname="$(echo $comp | cut -d' ' -f1)"
 
 # comment out the shebangs so the compilers don't complain
 for f in $comp; do
