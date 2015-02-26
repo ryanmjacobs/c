@@ -23,8 +23,8 @@ if [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
     exit 0
 fi
 
-# $comp  are the files and options that are passed to the compiler
-# $fname will become the programs argv[0]
+# $comp  holds the files and options that will be passed to the compiler
+# $fname will become the program's argv[0]
 for arg in $1; do
     if [ "$arg" == "--" ]; then
         fname="$2"
