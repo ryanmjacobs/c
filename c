@@ -35,8 +35,13 @@ for arg in $1; do
     fi
 done
 
-# if we're running CLI (and not from the shebang)
-[ -z "$fname" ] && fname="$(echo $comp | cut -d' ' -f1)"
+# If we don't have an fname yet, pick one out of $comp
+# that doesn't start with a '-'
+if [ -z "$fname" ]; then
+    for arg in $1; do
+        [[ "$arg" != -* ]] && fname="$arg"
+    done
+fi
 
 # comment out the shebangs so the compilers don't complain
 for f in $comp; do
