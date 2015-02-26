@@ -18,12 +18,10 @@ if [ $# -eq 0 ]; then
 fi
 
 # help if we get the flags
-for arg in "$@"; do
-    if [ "$arg" == "--help" ] || [ "$arg" == "-h" ]; then
-        help_msg $FUNCNAME
-        exit 0
-    fi
-done
+if [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
+    help_msg $FUNCNAME
+    exit 0
+fi
 
 # $comp  are the files and options that are passed to the compiler
 # $fname will become the programs argv[0]
