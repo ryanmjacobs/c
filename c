@@ -25,7 +25,18 @@ for arg in "$@"; do
     fi
 done
 
+# will pass to compiler
 comp="$1"
+
+# fname will become argv[0]
+if [ "$(echo $1 | rev | cut -d' ' -f1 | rev)" == "-s" ]; then
+    # we're using the shebang
+    fname="$2"
+    comp+=" $2"
+else
+    # running from CLI
+    fname="$(echo $comp | cut -d' ' -f1)"
+fi
 
 # comment out the shebangs so the compilers don't complain
 for f in $comp; do
@@ -33,9 +44,6 @@ for f in $comp; do
         sed -i '1!b;s/^#!/\/\/#!/' "$f"
     fi
 done
-
-# fname will become argv[0]
-fname="$(echo $comp | cut -d' ' -f1)"
 
 clean=false
 cleanup() {
