@@ -92,8 +92,10 @@ Then be sure to add the terminating `--` characters.
 #!/usr/bin/c file1.c file2.c -lncurses -lm --
 ```
 
-## That's All Folks!
-Thanks for browsing this project. I hope it helps someone. :smile:
+## The End
+Thanks for browsing this project. If you have any problems, questions, or
+ideas just submit an issue and/or pull request. I hope you enjoy using it as
+much as I did making it!
 
 ## License
-MIT. See [LICENSE](https://github.com/ryanmjacobs/c/LICENSE).
+MIT. See [LICENSE](https://raw.githubusercontent.com/ryanmjacobs/c/master/LICENSE).
