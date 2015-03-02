@@ -23,6 +23,13 @@ if [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
     exit 0
 fi
 
+# get our CC variable set
+[ -z "$CC" ] && CC=cc
+if ! type "$CC" &>/dev/null &>/dev/null; then
+    echo "error: \$CC ($CC) not found"
+    exit 3
+fi
+
 # $comp  holds the files and options that will be passed to the compiler
 # $fname will become the program's argv[0]
 for arg in $1; do
