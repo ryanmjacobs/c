@@ -78,6 +78,7 @@ else
     ret=1
 fi
 
+# cleanup and exit
 trap - SIGINT
 cleanup
 exit $ret
