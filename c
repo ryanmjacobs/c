@@ -26,7 +26,7 @@ fi
 # get our CC variable set
 [ -z "$CC" ] && CC=cc
 if ! type "$CC" &>/dev/null &>/dev/null; then
-    echo "error: \$CC ($CC) not found"
+    >&2 echo "error: \$CC ($CC) not found"
     exit 1
 fi
 
