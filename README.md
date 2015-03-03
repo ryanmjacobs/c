@@ -61,6 +61,8 @@ $ echo 'PATH=$PATH:$HOME/.bin' >> ~/.bashrc
 c will use whatever $CC is set to. You can change this with:
 ```bash
 $ export CC=clang
+$ export CC=tcc
+$ # etc...
 ```
 ## CLI
 ### Multiple Files - CLI
