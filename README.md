@@ -58,7 +58,7 @@ $ echo 'PATH=$PATH:$HOME/.bin' >> ~/.bashrc
 ```
 
 ## Okay, how do I use it?
-Note: c will use whatever $CC is set to. You can change this with:
+c will use whatever $CC is set to. You can change this with:
 ```bash
 $ export CC=clang
 ```
