@@ -22,8 +22,8 @@ underline="\033[4m"
 PASSES=0
  FAILS=0
 
-header1() { echo -e "${bold}${italics}${yellow}$@${nc}"; }
-header2() { echo -e "${underline}${yellow}$@${nc}"; }
+header1() { echo -e "${italics}${bold}${yellow}$@${nc}"; }
+header2() { echo -e "${italics}${yellow}$@${nc}"; }
 
 assert() {
     echo -en "${cyan}$1${nc} - "
