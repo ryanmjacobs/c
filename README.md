@@ -58,6 +58,10 @@ $ echo 'PATH=$PATH:$HOME/.bin' >> ~/.bashrc
 ```
 
 ## Okay, how do I use it?
+Note: c will use whatever $CC is set to. You can change this with:
+```bash
+$ export CC=clang
+```
 ## CLI
 ### Multiple Files - CLI
 Anything you want passed to the compiler, put in quotes as the first argument.
@@ -66,7 +70,7 @@ Whether they're flags (`-Wall`, `-O2`, etc.) or file names (`file.c`,
 
 ```bash
 $ c "main.c other.c" arg1 arg2
-$ c "main.c other.c -Wall -lncurses" arg1 arg2
+$ c "main.c other.c -O3 -Wall -lncurses" arg1 arg2
 ```
 ### Single File - CLI
 With only one file, omit the quotes:
