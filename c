@@ -72,7 +72,7 @@ cleanup() {
     done
 
     # remove the tmp binary
-    rm -- "$binname"
+    rm "$binname"
 
     clean=true
 }
