@@ -72,7 +72,7 @@ trap cleanup SIGINT
 binname=$(mktemp /tmp/c.XXX)
 if cc -O2 -o "$binname" $comp; then
     shift
-    (exec -a "$fname" "$binname" $@)
+    (exec -a "$fname" "$binname" "$@")
     ret=$?
 else
     ret=1
