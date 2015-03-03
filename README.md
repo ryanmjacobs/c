@@ -43,7 +43,7 @@ $ ./hello.c
 Hello World!
 ```
 
-## Hooked? Here's how to install:
+## Hooked? Here's how to install it:
 For all users:
 ```bash
 $ git clone https://github.com/ryanmjacobs/c
@@ -58,6 +58,7 @@ $ echo 'PATH=$PATH:$HOME/.bin' >> ~/.bashrc
 ```
 
 ## Okay, how do I use it?
+## CLI
 ### Multiple Files - CLI
 Anything you want passed to the compiler, put in quotes as the first argument.
 Whether they're flags (`-Wall`, `-O2`, etc.) or file names (`file.c`,
