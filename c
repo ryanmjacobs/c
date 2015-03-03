@@ -14,7 +14,7 @@ help_msg() {
 # help if we have no arguments
 if [ $# -eq 0 ]; then
     help_msg 2
-    exit 2
+    exit 1
 fi
 
 # help if we get the flags
@@ -27,7 +27,7 @@ fi
 [ -z "$CC" ] && CC=cc
 if ! type "$CC" &>/dev/null &>/dev/null; then
     echo "error: \$CC ($CC) not found"
-    exit 3
+    exit 1
 fi
 
 # $comp  holds the files and options that will be passed to the compiler
