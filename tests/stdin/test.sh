@@ -1,6 +1,5 @@
 #!/bin/bash
 
-source "test_helpers.sh"
 pushd stdin
 
 ##

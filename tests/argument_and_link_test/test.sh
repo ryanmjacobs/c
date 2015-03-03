@@ -1,6 +1,5 @@
 #!/bin/bash
 
-source "test_helpers.sh"
 pushd argument_and_link_test
 
 ##
