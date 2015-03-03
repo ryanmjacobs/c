@@ -39,7 +39,10 @@ done
 # that doesn't start with a '-'
 if [ -z "$fname" ]; then
     for arg in $1; do
-        [[ "$arg" != -* ]] && fname="$arg"
+        if [[ "$arg" != -* ]]; then
+            fname="$arg"
+            break
+        fi
     done
 fi
 
