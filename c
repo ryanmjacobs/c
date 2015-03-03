@@ -11,8 +11,8 @@ help_msg() {
     >&$1 echo
 }
 
-# help if we have no arguments
-if [ $# -eq 0 ]; then
+# help if we have no arguments and no stdin
+if [ $# -eq 0 ] && [ -t 0 ]; then
     help_msg 2
     exit 1
 fi
@@ -53,6 +53,18 @@ if [ -z "$fname" ]; then
     done
 fi
 
+# create a random biname
+binname=$(mktemp /tmp/c.XXX)
+
+# create stdin file if we need it
+if [ ! -t 0 ]; then
+    fname="stdin"
+    stdin="$binname.stdin.c"
+    comp+=" $stdin"
+
+    cat <&0 >$stdin # useless use of cat?
+fi
+
 # comment out the shebangs so the compilers don't complain
 for f in $comp; do
     if [ -f "$f" ]; then
@@ -71,15 +83,15 @@ cleanup() {
         fi
     done
 
-    # remove the tmp binary
+    # remove the tmp files
     rm "$binname"
+    [ -t 0 ] || rm "$stdin"
 
     clean=true
 }
 trap cleanup SIGINT
 
 # compile and run
-binname=$(mktemp /tmp/c.XXX)
 if cc -O2 -o "$binname" $comp; then
     shift
     (exec -a "$fname" "$binname" "$@")

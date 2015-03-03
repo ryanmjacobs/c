@@ -1,6 +1,6 @@
-#!../../c -Wall -Werror -lm --
-#include <math.h>
 #include <stdio.h>
+
+void print_pow(void);
 
 int main(int argc, char **argv) {
     unsigned int i;
@@ -15,7 +15,7 @@ int main(int argc, char **argv) {
     for (i = 0; i < 4; i++)
         puts(argv[i]);
 
-    printf("%.0f\n", pow(2, 10));
+    print_pow();
 
     return 123;
 }

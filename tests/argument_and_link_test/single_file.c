@@ -1,7 +1,6 @@
 #!../../c multi_file_2.c -Wall -Werror -lm --
 #include <math.h>
 #include <stdio.h>
-#include <libgen.h>
 
 int main(int argc, char **argv) {
     unsigned int i;

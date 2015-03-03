@@ -6,5 +6,6 @@ source "./test_helpers.sh"
 # Run tests
 ./argument_and_link_test/test.sh
 ./complex_arguments/test.sh
+./stdin/test.sh
 
 quit
