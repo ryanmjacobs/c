@@ -94,10 +94,15 @@ Then be sure to add the terminating `--` characters.
 #!/usr/bin/c file1.c file2.c -lncurses -lm --
 ```
 
-## The End
-Thanks for browsing this project. If you have any problems, questions, or
-ideas just submit an issue and/or pull request. I hope you enjoy using it as
-much as I did making it!
+# Contributing
+Feel free to submit any ideas, questions, or problems by reporting an issue.
+Or, if you're feeling bit brave, submit a pull request. :grimacing:
+
+Just hack away and make sure that all of the tests pass.
+```bash
+$ cd tests
+$ ./test.sh
+```
 
 ## License
 ```
