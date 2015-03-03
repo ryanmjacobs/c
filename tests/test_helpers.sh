@@ -1,5 +1,9 @@
 #!/bin/bash
 
+shopt -s expand_aliases
+alias pushd='pushd &>/dev/null'
+alias popd='popd &>/dev/null'
+
 # styles
        nc="\033[0m"
      bold="\033[1m"
@@ -33,6 +37,10 @@ assert() {
 
 # print status and quit
 quit() {
+    END=$(date +%s.%N)
+    printf "\n${yellow}Duration: %0.1fs${nc}\n"\
+           $(echo - | awk "{print $END - $START}")
+
     if [ $FAILS -gt 0 ]; then
         fail_color=$red
         pass_color=$cyan
@@ -49,3 +57,5 @@ quit() {
 
     exit $FAILS
 }
+
+START=$(date +%s.%N)
