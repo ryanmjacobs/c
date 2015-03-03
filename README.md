@@ -8,7 +8,7 @@ c
 I love C for it's raw speed, (although it does have its drawbacks). We
 should all write more C.
 
-With this shell script, you can compile and execute a C "scripts" in
+With this shell script, you can compile and execute C "scripts" in
 one go!
 
 Here's a simple example:
