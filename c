@@ -1,25 +1,25 @@
 #!/bin/bash
 
 help_msg() {
-    echo "Usage: $0 [file.c ... | compiler_options ...] [program arguments]"
-    echo "Execute C progams from the command line."
-    echo
-    echo "  Ex: c main.c"
-    echo "  Ex: c main.c arg1 arg2"
-    echo "  Ex: c \"main.c other.c\" arg1 arg2"
-    echo "  Ex: c \"main.c -lncurses\" arg1 arg2"
-    echo
+    >&$1 echo "Usage: $0 [file.c ... | compiler_options ...] [program arguments]"
+    >&$1 echo "Execute C progams from the command line."
+    >&$1 echo
+    >&$1 echo "  Ex: c main.c"
+    >&$1 echo "  Ex: c main.c arg1 arg2"
+    >&$1 echo "  Ex: c \"main.c other.c\" arg1 arg2"
+    >&$1 echo "  Ex: c \"main.c -lncurses\" arg1 arg2"
+    >&$1 echo
 }
 
 # help if we have no arguments
 if [ $# -eq 0 ]; then
-    help_msg $FUNCNAME
+    help_msg 2
     exit 2
 fi
 
 # help if we get the flags
 if [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
-    help_msg $FUNCNAME
+    help_msg 1
     exit 0
 fi
 
