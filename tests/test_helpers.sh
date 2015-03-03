@@ -1,5 +1,7 @@
 #!/bin/bash
 
+c="$(cd ../; pwd)/c"
+
 shopt -s expand_aliases
 alias pushd='pushd &>/dev/null'
 alias popd='popd &>/dev/null'
