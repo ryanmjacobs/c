@@ -9,7 +9,7 @@ pushd argument_and_link_test
 # $1="command to run C file"
 # $2="expected value of argv[0]"
 ##
-argument_and_link() {
+run() {
     out=$(eval "$1")
     ret=$?
     n=1
@@ -27,32 +27,25 @@ argument_and_link() {
     assert "return " "$ret -eq 123"
 }
 
-##########################
-# Argument and Link Test #
-##########################
 header1 "Test #1: Argument parsing and linking capabilities."
 
 ## Single File - CLI
 header2 "Single File - CLI"
-argument_and_link "$c 'single_file.c -Wall -Werror -lm'\
-                         arg1 arg2 'arg three'" "single_file.c"
+run "$c 'single_file.c -Wall -Werror -lm'\
+         arg1 arg2 'arg three'" "single_file.c"
 
 ## Single File - Shebang
 header2 "Single File - Shebang"
-argument_and_link "./single_file.c\
-                         arg1 arg2 'arg three'" "./single_file.c"
+run "./single_file.c\
+         arg1 arg2 'arg three'" "./single_file.c"
 
 # Multi. File - CLI
 header2 "Multi. File - CLI"
-argument_and_link "$c 'multi_file_1.c multi_file_2.c -Wall -Werror -lm'\
-                         arg1 arg2 'arg three'" "multi_file_1.c"
+run "$c 'multi_file_1.c multi_file_2.c -Wall -Werror -lm'\
+         arg1 arg2 'arg three'" "multi_file_1.c"
 
 # Multi. File - CLI
 header2 "Multi. File - Shebang"
-argument_and_link "./multi_file_1.c\
-                         arg1 arg2 'arg three'" "./multi_file_1.c"
-##############################
-# END Argument and Link Test #
-##############################
-
-popd
+run "./multi_file_1.c\
+         arg1 arg2 'arg three'" "./multi_file_1.c"
+popd; echo

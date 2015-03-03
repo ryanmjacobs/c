@@ -40,7 +40,7 @@ assert() {
 # print status and quit
 quit() {
     END=$(date +%s.%N)
-    printf "\n${yellow}Duration: %0.1fs${nc}\n"\
+    printf "${yellow}Duration: %0.1fs${nc}\n"\
            $(echo - | awk "{print $END - $START}")
 
     if [ $FAILS -gt 0 ]; then

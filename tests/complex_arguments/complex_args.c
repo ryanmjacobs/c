@@ -1,14 +1,14 @@
-#!../../c multi_file_2.c -Wall -Werror -lm --
+#!../../c -Wall -Werror -lm --
+#include <math.h>
 #include <stdio.h>
-
-void print_pow(void);
+#include <libgen.h>
 
 int main(int argc, char **argv) {
     unsigned int i;
 
     printf("argc=%d\n", argc);
 
-    if (argc != 4) {
+    if (argc != 5) {
         fputs("error: need 3 arguments\n", stderr);
         return 1;
     }
@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
     for (i = 0; i < 4; i++)
         puts(argv[i]);
 
-    print_pow();
+    printf("%.0f\n", pow(2, 10));
 
     return 123;
 }
