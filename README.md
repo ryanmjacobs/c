@@ -46,11 +46,18 @@ Hello World!
 ```
 
 ## Hooked? Here's how to install it:
+
+With [bpkg](https://github.com/bpkg/bpkg):
+```bash
+$ bpkg install ryanmjacobs/c
+```
+
 For all users:
 ```bash
 $ git clone https://github.com/ryanmjacobs/c
 $ sudo cp ./c/c /usr/bin/c
 ```
+
 Just for a local user:
 ```bash
 $ git clone https://github.com/ryanmjacobs/c
@@ -58,6 +65,7 @@ $ mkdir -p ~/.bin
 $ cp ./c/c ~/.bin/c
 $ echo 'PATH=$PATH:$HOME/.bin' >> ~/.bashrc
 ```
+
 Note: if you install it somewhere other than `/usr/bin/c`, then your shebang will be different.
 For example it may be something more similar to `#!/home/ryan/.bin/c`.
 

@@ -1,0 +1,9 @@
+{
+  "name": "c",
+  "version": "v0.06",
+  "description": "Compile and execute C \'scripts\' in one go!",
+  "global": "true",
+  "install": "install c ${PREFIX:-/usr/local}/bin",
+  "scripts": [ "c" ]
+}
+
