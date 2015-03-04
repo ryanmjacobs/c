@@ -5,7 +5,7 @@ c
 
 > "There isn't much that's special about C. That's one of the reasons why it's fast."
 
-I love C for it's raw speed, (although it does have its drawbacks). We
+I love C for its raw speed (although it does have its drawbacks). We
 should all write more C.
 
 With this shell script, you can compile and execute C "scripts" in
