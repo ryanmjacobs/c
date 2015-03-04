@@ -58,6 +58,8 @@ $ mkdir -p ~/.bin
 $ cp ./c/c ~/.bin/c
 $ echo 'PATH=$PATH:$HOME/.bin' >> ~/.bashrc
 ```
+Note: if you install it somewhere other than `/usr/bin/c`, then your shebang will be different.
+For example it may be something similar to `#!/home/ryan/.bin/c`.
 
 ## Okay, how do I use it?
 c will use whatever $CC is set to. You can change this with:
