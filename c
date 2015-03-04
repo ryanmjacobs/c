@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 help_msg() {
     >&$1 echo "Usage: $0 [file.c ... | compiler_options ...] [program arguments]"
