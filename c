@@ -54,7 +54,7 @@ if [ -z "$fname" ]; then
 fi
 
 # create a random biname
-binname=$(mktemp /tmp/c.XXX)
+binname=$(mktemp)
 
 # create stdin file if we need it
 if [ ! -t 0 ]; then
