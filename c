@@ -95,7 +95,7 @@ cleanup() {
 trap cleanup SIGINT
 
 # compile and run
-if cc -O2 -o "$binname" ${comp[@]}; then
+if cc -I"$(pwd)" -O2 -o "$binname" ${comp[@]}; then
     shift
     (exec -a "$fname" "$binname" "$@")
     ret=$?
