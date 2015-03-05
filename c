@@ -11,6 +11,14 @@ help_msg() {
     >&$1 echo
 }
 
+sed_i() {
+    sed="gsed"
+    if ! type "$sed" &>/dev/null &>/dev/null; then
+        sed="sed"
+    fi
+    "$sed" -i "$1" "$2"
+}
+
 # help if we have no arguments and no stdin
 if [ $# -eq 0 ] && [ -t 0 ]; then
     help_msg 2
@@ -68,7 +76,7 @@ fi
 # comment out the shebangs so the compilers don't complain
 for f in $comp; do
     if [ -f "$f" ]; then
-        sed -i '1!b;s/^#!/\/\/#!/' "$f"
+        sed_i '1!b;s/^#!/\/\/#!/' "$f"
     fi
 done
 
@@ -79,7 +87,7 @@ cleanup() {
     # uncomment the shebangs
     for f in $comp; do
         if [ -f "$f" ]; then
-            sed -i '1!b;s/^\/\/#!/#!/' "$f"
+            sed_i '1!b;s/^\/\/#!/#!/' "$f"
         fi
     done
 
