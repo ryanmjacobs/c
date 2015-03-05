@@ -11,14 +11,6 @@ help_msg() {
     >&$1 echo
 }
 
-sed_i() {
-    sed="gsed"
-    if ! type "$sed" &>/dev/null; then
-        sed="sed"
-    fi
-    "$sed" -i "$@"
-}
-
 # help if we have no arguments and no stdin
 if [[ $# -eq 0 && -t 0 ]]; then
     help_msg 2
@@ -87,7 +79,10 @@ done
 
 # remove shebangs
 for f in ${comp[@]}; do
-    [[ -f "$f" ]] && sed_i '1!b;s/^#!/\/\/#!/' "$f"
+    [[ -f "$f" ]] && {
+        stripped=$(cat "$f" | grep -v "^#!/")
+        echo "$stripped" > "$f"
+    }
 done
 
 cleanup() {
