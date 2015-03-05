@@ -78,8 +78,9 @@ fi
 i=0
 for f in ${comp[@]}; do
     if [[ -f "$f" && "$f" != $tmpdir* ]]; then
-        cp "$f" "$tmpdir/$f"
-        comp[$i]="$tmpdir/$f"
+        fbasename=$(basename $f)
+        cp "$f" "$binname.$fbasename"
+        comp[$i]="$binname.$fbasename"
     fi
     let i++
 done
