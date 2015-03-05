@@ -11,6 +11,8 @@ should all write more C.
 With this shell script, you can compile and execute C "scripts" in
 one go!
 
+(Oh yeah, and it works for C++ too).
+
 ![GIF Demo](http://i.imgur.com/aWnG03r.gif)
 
 Here's a simple example:
