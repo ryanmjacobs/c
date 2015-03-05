@@ -33,7 +33,7 @@ fi
 
 # ensure our $CC variable is set
 [[ -z "$CC" ]] && CC=cc
-if ! type "$CC" &>/dev/null &>/dev/null; then
+if ! type "$CC" &>/dev/null; then
     >&2 echo "error: \$CC ($CC) not found"
     exit 1
 fi
