@@ -46,11 +46,7 @@ Hello World!
 ```
 
 ## Hooked? Here's how to install it:
-
-With [bpkg](https://github.com/bpkg/bpkg):
-```bash
-$ bpkg install ryanmjacobs/c
-```
+Use a package manager? [Go here](https://github.com/ryanmjacobs/c#packages).
 
 For all users:
 ```bash
@@ -132,6 +128,14 @@ Just hack away and make sure that all of the tests pass.
 ```bash
 $ cd tests
 $ ./test.sh
+```
+
+## Packages
+Use a package manager? You've come to the right place.
+
+bpkg:
+```bash
+$ bpkg install ryanmjacobs/c
 ```
 
 ## License
