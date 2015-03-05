@@ -23,7 +23,7 @@ if [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
     exit 0
 fi
 
-# get our CC variable set
+# ensure our $CC variable is set
 [ -z "$CC" ] && CC=cc
 if ! type "$CC" &>/dev/null &>/dev/null; then
     >&2 echo "error: \$CC ($CC) not found"
@@ -35,10 +35,10 @@ fi
 for arg in $1; do
     if [ "$arg" == "--" ]; then
         fname="$2"
-        comp+=" $2"
+        comp+=("$2")
         shift
     else
-        comp+=" $arg"
+        comp+=("$arg")
     fi
 done
 
@@ -54,45 +54,40 @@ if [ -z "$fname" ]; then
 fi
 
 # create a random biname
-binname=$(mktemp -t c.XXX)
+ tmpdir="$(mktemp -d -t c.XXX)"
+binname="$tmpdir/bin"
 
 # create stdin file if we need it
 if [ ! -t 0 ]; then
     fname="stdin"
-    stdin="$binname.stdin.c"
-    comp+=" $stdin"
+    stdin="$tmpdir/stdin.c"
+    comp+=("$stdin")
 
     cat <&0 >$stdin # useless use of cat?
 fi
 
-# comment out the shebangs so the compilers don't complain
-for f in $comp; do
-    if [ -f "$f" ]; then
-        sed -i '1!b;s/^#!/\/\/#!/' "$f"
+# copy source files to $tmpdir
+i=0
+for f in ${comp[@]}; do
+    if [[ -f "$f" ]] && [[ "$f" != $tmpdir* ]]; then
+        cp "$f" "$tmpdir/$f"
+        comp[$i]="$tmpdir/$f"
     fi
+    let i++
 done
 
-clean=false
+# remove shebangs
+for f in ${comp[@]}; do
+    [ -f "$f" ] && sed -i '1!b;s/^#!/\/\/#!/' "$f"
+done
+
 cleanup() {
-    [ $clean == "true" ] && return
-
-    # uncomment the shebangs
-    for f in $comp; do
-        if [ -f "$f" ]; then
-            sed -i '1!b;s/^\/\/#!/#!/' "$f"
-        fi
-    done
-
-    # remove the tmp files
-    rm "$binname"
-    [ -t 0 ] || rm "$stdin"
-
-    clean=true
+    rm -r "$tmpdir" &>/dev/null
 }
 trap cleanup SIGINT
 
 # compile and run
-if cc -O2 -o "$binname" $comp; then
+if cc -O2 -o "$binname" ${comp[@]}; then
     shift
     (exec -a "$fname" "$binname" "$@")
     ret=$?
