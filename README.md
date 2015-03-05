@@ -46,7 +46,7 @@ Hello World!
 ```
 
 ## Hooked? Here's how to install it:
-Use a package manager? [Go here](https://github.com/ryanmjacobs/c#packages).
+Use a package manager? [Check here](https://github.com/ryanmjacobs/c#packages).
 
 For all users:
 ```bash
