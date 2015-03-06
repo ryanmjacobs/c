@@ -67,6 +67,12 @@ if [[ ! -t 0 ]]; then
 fi
 0<&-
 
+# assemble our includes, based on the original file locations
+includes="-I$(pwd)"
+for f in ${comp[@]}; do
+    [[ -f "$f" ]] && includes+=" -I$(dirname "$f")"
+done
+
 # copy source files to $tmpdir
 i=0
 for f in ${comp[@]}; do
@@ -97,7 +103,7 @@ cleanup() {
 trap cleanup SIGINT
 
 # compile and run
-if "$CC" -I"$(pwd)" -O2 -o "$binname" ${comp[@]}; then
+if "$CC" -O2 -o "$binname" ${comp[@]} $includes; then
     shift
     (exec -a "$fname" "$binname" "$@")
     ret=$?
