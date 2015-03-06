@@ -65,6 +65,7 @@ if [[ ! -t 0 ]]; then
 
     cat <&0 >$stdin # useless use of cat?
 fi
+0<&-
 
 # copy source files to $tmpdir
 i=0
