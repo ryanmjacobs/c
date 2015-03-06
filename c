@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# Size of the binary cache store
+cachesize=10
+
+# Make sure this does not have a trailing slash...
+tmproot=/tmp/cachec
+
 help_msg() {
     >&$1 echo "Usage: $0 [file.c ... | compiler_options ...] [program arguments]"
     >&$1 echo "Execute C progams from the command line."
@@ -9,6 +15,22 @@ help_msg() {
     >&$1 echo "  Ex: c \"main.c other.c\" arg1 arg2"
     >&$1 echo "  Ex: c \"main.c -lncurses\" arg1 arg2"
     >&$1 echo
+}
+
+# Removes all but the last $cachesize compiled files from the cache
+cleanup() {
+    if [[ $(ls -1 "$tmproot" | wc -l) -gt $cachesize ]]; then
+        # List the objects in $tmproot, ordered by date, tail reads line $cachesize+1 onwards, then remove said directories
+        ((cachesize++))
+        ls -t1 "$tmproot" | tail -n +$cachesize | while read rem; do rm -rf "$tmproot/$rem"; done
+    fi
+}
+
+# Runs our binary
+run() {
+    shift
+    (exec -a "$fname" "$binname" "$@")
+    return $?
 }
 
 # help if we have no arguments and no stdin
@@ -53,9 +75,9 @@ if [[ -z "$fname" ]]; then
     done
 fi
 
-# create a random biname
- tmpdir="$(mktemp -d -t c.XXX)"
-binname="$tmpdir/bin"
+# Where we store our cache
+tmpdir="$tmproot"
+mkdir -p $tmpdir
 
 # create stdin file if we need it
 if [[ ! -t 0 ]]; then
@@ -66,6 +88,33 @@ if [[ ! -t 0 ]]; then
     cat <&0 >$stdin # useless use of cat?
 fi
 0<&-
+
+# create a calculated biname
+for f in ${comp[@]}; do
+    # First, append sha1sums of all files and options into one long string
+    if [[ -f "$f" ]]; then
+        cachename="$cachename$(sha1sum $f|cut -d' ' -f1)"
+    else
+        cachename="$cachename$(sha1sum <<< $f|cut -d' ' -f1)"
+    fi
+done
+# Now sha1sum this so that it fits into a filename
+tmpdir="$tmpdir/$(sha1sum <<< $cachename|cut -d' ' -f1)"
+
+binname="$tmpdir/bin"
+
+# Run cached file if it exists
+if [[ -f "$binname" ]]; then
+    trap cleanup SIGINT
+    run "$@"
+    ret=$?
+    # cleanup and exit
+    trap - SIGINT
+    cleanup
+    exit $ret
+else
+    mkdir -p $tmpdir
+fi
 
 # assemble our includes, based on the original file locations
 includes="-I$(pwd)"
@@ -97,15 +146,11 @@ done
 # link stdc++ if necessary
 [[ "$cpp" == true ]] && comp+=("-lstdc++")
 
-cleanup() {
-    rm -r "$tmpdir" &>/dev/null
-}
 trap cleanup SIGINT
 
 # compile and run
 if "$CC" -O2 $CFLAGS -o "$binname" ${comp[@]} $includes; then
-    shift
-    (exec -a "$fname" "$binname" "$@")
+    run "$@"
     ret=$?
 else
     ret=1
