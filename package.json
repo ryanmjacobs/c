@@ -1,6 +1,6 @@
 {
   "name": "c",
-  "version": "v0.07",
+  "version": "v0.08",
   "description": "Compile and execute C \'scripts\' in one go!",
   "global": "true",
   "install": "install -Dm 775 c ${PREFIX:-/usr}/bin",
