@@ -78,12 +78,18 @@ for f in ${comp[@]}; do
     let i++
 done
 
-# remove shebangs
 for f in ${comp[@]}; do
+    # for C++ files
+    [[ "$f" =~ \.(cc|c\+\+|cpp|cxx)$ ]] && cpp=true
+
+    # remove shebangs
     if [[ -f "$f" ]] && [[ "$(head -n1 "$f")" == \#\!* ]]; then
         echo "$(tail -n +2 "$f")" > "$f"
     fi
 done
+
+# link stdc++ if necessary
+[[ "$cpp" == true ]] && comp+=("-lstdc++")
 
 cleanup() {
     rm -r "$tmpdir" &>/dev/null
