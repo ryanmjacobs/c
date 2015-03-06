@@ -103,7 +103,7 @@ cleanup() {
 trap cleanup SIGINT
 
 # compile and run
-if "$CC" -O2 -o "$binname" ${comp[@]} $includes; then
+if "$CC" -O2 $CFLAGS -o "$binname" ${comp[@]} $includes; then
     shift
     (exec -a "$fname" "$binname" "$@")
     ret=$?
