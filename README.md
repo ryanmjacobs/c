@@ -132,11 +132,30 @@ $ cd tests
 $ ./test.sh
 ```
 
+## Why?
+First of all, I want to clarify why this is **not** the same as `tcc -run`.
+TCC is a compiler. We all know that. TCC will preform its own set of
+optimizations, just as GCC will preform its own and Clang will preform its own.
+The purpose of this script is to give a simple front-end to your favorite
+compiler.
+
+Whether it's GCC, Clang, or something else entirely, **you** get to choose
+your compiler.
+
+Second reason: it's simply satisfying to type `c hello.c` and see it run instantly.
+
+Third reason: I'm a fan of speed, and C definitely offers it. Being able to
+write a small, fast, and portable C "script" is great. You can pass around a
+C "script" just like you would a BASH script.
+
 ## Packages
 Use a package manager? You've come to the right place.
 
 AUR: https://aur.archlinux.org/packages/c/<br>
 bpkg: `bpkg install ryanmjacobs/c`
+
+## Todo
+Maybe later we can implement caching. :grinning:
 
 ## License
 ```
