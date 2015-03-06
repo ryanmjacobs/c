@@ -80,7 +80,9 @@ done
 
 # remove shebangs
 for f in ${comp[@]}; do
-    [[ -f "$f" ]] && sed -i.bak '1,1s/^#!/\/\/#!/' "$f"
+    if [[ -f "$f" ]] && [[ "$(head -n1 "$f")" == \#\!* ]]; then
+        echo "$(tail -n +2 "$f")" > "$f"
+    fi
 done
 
 cleanup() {
