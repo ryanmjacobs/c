@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# max cachesize in bytes
+[[ -z "$C_CACHE_SIZE" ]] && C_CACHE_SIZE=$((5*1024*1024))
+
 help_msg() {
     >&$1 echo "Usage: $0 [file.c ... | compiler_options ...] [program arguments]"
     >&$1 echo "Execute C progams from the command line."
@@ -9,6 +12,17 @@ help_msg() {
     >&$1 echo "  Ex: c \"main.c other.c\" arg1 arg2"
     >&$1 echo "  Ex: c \"main.c -lncurses\" arg1 arg2"
     >&$1 echo
+}
+
+cleanup() {
+    # remove $tmpdir, which holds source code
+    rm -rf "$tmpdir" "$tmproot/stdin.c"
+
+    # remove cache files until we are under $cachesize
+    while [[ "$(du -sb "$tmproot" | cut -f1)" -gt "$C_CACHE_SIZE" ]]; do
+        [ -n "$(ls -A "$tmproot")" ] && break
+        rm -rf "$(find "$tmproot" -type f | tail -n1)"
+    done
 }
 
 # help if we have no arguments and no stdin
@@ -53,19 +67,59 @@ if [[ -z "$fname" ]]; then
     done
 fi
 
-# create a random biname
- tmpdir="$(mktemp -d -t c.XXX)"
-binname="$tmpdir/bin"
+# get cache location
+if [[ -n "$C_CACHE_PATH" ]]; then
+    tmproot="$C_CACHE_PATH"
+else
+    [[ -z "$TMPDIR" ]] && TMPDIR="/tmp"
+    tmproot="$TMPDIR/c.cache"
+fi
+mkdir -p "$tmproot"
 
 # create stdin file if we need it
 if [[ ! -t 0 ]]; then
     fname="stdin"
-    stdin="$tmpdir/stdin.c"
+    stdin="$tmproot/stdin.c"
     comp+=("$stdin")
 
     cat <&0 >$stdin # useless use of cat?
 fi
 0<&-
+
+# create calculated biname
+for f in ${comp[@]}; do
+    # first, append sha1sums of all files and options into one long string
+    if [[ -f "$f" ]]; then
+        cachename+="$(sha1sum "$f" | cut -d' ' -f1)"
+    else
+        cachename+="$(sha1sum <<< "$f" | cut -d' ' -f1)"
+    fi
+done
+
+# now sha1sum this so that it fits into a filename
+sha="$(sha1sum <<< $cachename | cut -d' ' -f1)"
+tmpdir="$tmproot/dir.$sha"
+binname="$tmproot/$sha"
+
+# run binary
+run() {
+    trap cleanup SIGINT
+
+    shift
+    (exec -a "$fname" "$binname" "$@")
+    ret=$?
+
+    trap - SIGINT
+    cleanup
+    exit $ret
+}
+
+# run cached file if it exists
+if [[ -f "$binname" ]]; then
+    run "$@"
+else
+    mkdir -p "$tmpdir"
+fi
 
 # assemble our includes, based on the original file locations
 includes="-I$(pwd)"
@@ -97,21 +151,9 @@ done
 # link stdc++ if necessary
 [[ "$cpp" == true ]] && comp+=("-lstdc++")
 
-cleanup() {
-    rm -r "$tmpdir" &>/dev/null
-}
-trap cleanup SIGINT
-
 # compile and run
 if "$CC" -O2 $CFLAGS -o "$binname" ${comp[@]} $includes; then
-    shift
-    (exec -a "$fname" "$binname" "$@")
-    ret=$?
+    run "$@"
 else
-    ret=1
+    return 1
 fi
-
-# cleanup and exit
-trap - SIGINT
-cleanup
-exit $ret

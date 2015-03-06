@@ -122,6 +122,16 @@ $ c "" arg1 arg2 < hello.c
 $ c "other.c -lncurses" arg1 arg2 < hello.c
 ```
 
+## Caching
+The default cache size is set to 5 MB. You can change this with:
+```bash
+$ export C_CACHE_SIZE=$((10*1024*1024))
+```
+The default cache path is set to `$TMPDIR/c.cache`. You can change this with:
+```bash
+$ export C_CACHE_PATH="/tmp/the_cache"
+```
+
 # Contributing
 Feel free to submit any ideas, questions, or problems by reporting an issue.
 Or, if you're feeling bit brave, submit a pull request. :grimacing:
@@ -155,7 +165,7 @@ AUR: https://aur.archlinux.org/packages/c/<br>
 bpkg: `bpkg install ryanmjacobs/c`
 
 ## Todo
-Maybe later we can implement caching. :grinning:
+~~Maybe later we can implement caching.~~ Done!
 
 ## License
 ```

@@ -60,4 +60,8 @@ quit() {
     exit $FAILS
 }
 
+# clear out the cache
+export C_CACHE="$(mktemp -d -t c.XXX)"
+rm -rf "$C_CACHE"
+
 START=$(date +%s.%N)
