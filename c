@@ -77,9 +77,9 @@ done
 i=0
 for f in ${comp[@]}; do
     if [[ -f "$f" && "$f" != $tmpdir* ]]; then
-        new_f="$tmpdir/$(echo "$f" | tr '/' '.')"
-        cp "$f" "$new_f"
-        comp[$i]="$new_f"
+        mkdir -p "$tmpdir/$(dirname "$f")"
+        cp "$f" "$tmpdir/$f"
+        comp[$i]="$tmpdir/$f"
     fi
     let i++
 done
