@@ -124,7 +124,7 @@ $ c "other.c -lncurses" arg1 arg2 < hello.c
 ## Caching
 The default cache size is set to 5 MB. You can change this with:
 ```bash
-$ export C_CACHE_SIZE=$((10*1024*1024))
+$ export C_CACHE_SIZE=$((10*1024)) # 10 MB
 ```
 The default cache path is set to `$TMPDIR/c.cache`. You can change this with:
 ```bash
