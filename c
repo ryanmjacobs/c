@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# max cachesize in bytes
-[[ -z "$C_CACHE_SIZE" ]] && C_CACHE_SIZE=$((5*1024*1024))
+# max cachesize in kilobytes
+[[ -z "$C_CACHE_SIZE" ]] && C_CACHE_SIZE=$((5*1024))
 
 help_msg() {
     >&$1 echo "Usage: $0 [file.c ... | compiler_options ...] [program arguments]"
@@ -19,7 +19,7 @@ cleanup() {
     rm -rf "$tmpdir" "$tmproot/stdin.c"
 
     # remove cache files until we are under $cachesize
-    while [[ "$(du -sb "$tmproot" | cut -f1)" -gt "$C_CACHE_SIZE" ]]; do
+    while [[ "$(du -kc "$tmproot" | tail -1 | cut -f1)" -gt "$C_CACHE_SIZE" ]]; do
         [ -n "$(ls -A "$tmproot")" ] && break
         rm -rf "$(find "$tmproot" -type f | tail -n1)"
     done
@@ -86,18 +86,23 @@ if [[ ! -t 0 ]]; then
 fi
 0<&-
 
+sha1sum="sha1sum"
+if ! type "$shasum" &>/dev/null; then
+    sha1sum="shasum"
+fi
+
 # create calculated biname
 for f in ${comp[@]}; do
     # first, append sha1sums of all files and options into one long string
     if [[ -f "$f" ]]; then
-        cachename+="$(sha1sum "$f" | cut -d' ' -f1)"
+        cachename+="$("$sha1sum" "$f" | cut -d' ' -f1)"
     else
-        cachename+="$(sha1sum <<< "$f" | cut -d' ' -f1)"
+        cachename+="$("$sha1sum" <<< "$f" | cut -d' ' -f1)"
     fi
 done
 
 # now sha1sum this so that it fits into a filename
-sha="$(sha1sum <<< $cachename | cut -d' ' -f1)"
+sha="$("$sha1sum" <<< $cachename | cut -d' ' -f1)"
 tmpdir="$tmproot/dir.$sha"
 binname="$tmproot/$sha"
 
