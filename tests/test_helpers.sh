@@ -61,7 +61,7 @@ quit() {
 }
 
 # clear out the cache
-export C_CACHE="$(mktemp -d -t c.XXX)"
-rm -rf "$C_CACHE"
+export C_CACHE_PATH="$(mktemp -d -t c.XXX)"
+rm -rf "$C_CACHE_PATH"
 
 START=$(date +%s.%N)

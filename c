@@ -86,23 +86,23 @@ if [[ ! -t 0 ]]; then
 fi
 0<&-
 
-sha1sum="sha1sum"
+shasum="sha1sum"
 if ! type "$shasum" &>/dev/null; then
-    sha1sum="shasum"
+    shasum="shasum"
 fi
 
 # create calculated biname
 for f in ${comp[@]}; do
     # first, append sha1sums of all files and options into one long string
     if [[ -f "$f" ]]; then
-        cachename+="$("$sha1sum" "$f" | cut -d' ' -f1)"
+        cachename+="$("$shasum" "$f" | cut -d' ' -f1)"
     else
-        cachename+="$("$sha1sum" <<< "$f" | cut -d' ' -f1)"
+        cachename+="$("$shasum" <<< "$f" | cut -d' ' -f1)"
     fi
 done
 
 # now sha1sum this so that it fits into a filename
-sha="$("$sha1sum" <<< $cachename | cut -d' ' -f1)"
+sha="$("$shasum" <<< $cachename | cut -d' ' -f1)"
 tmpdir="$tmproot/dir.$sha"
 binname="$tmproot/$sha"
 
