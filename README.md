@@ -1,5 +1,4 @@
-c
-=
+# c
 
 [![Build Status](https://travis-ci.org/ryanmjacobs/c.svg)](https://travis-ci.org/ryanmjacobs/c)
 
