@@ -157,6 +157,15 @@ Third reason: I'm a fan of speed, and C definitely offers it. Being able to
 write a small, fast, and portable C "script" is great. You can pass around a
 C "script" just like you would a BASH script.
 
+## zsh
+If you're using `zsh`, then you can take advantage of `zsh`'s suffix aliases:
+```bash
+$ alias -s c='c'
+$ alias -s cc='c'
+$ alias -s cpp='c'
+```
+Then you can run files with `./file.c` without `chmod +x`.
+
 ## Packages
 Use a package manager? You've come to the right place.
 
