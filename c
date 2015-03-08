@@ -20,7 +20,7 @@ cleanup() {
 
     # remove cache files until we are under $cachesize
     while [[ "$(du -kc "$tmproot" | tail -1 | cut -f1)" -gt "$C_CACHE_SIZE" ]]; do
-        [ -n "$(ls -A "$tmproot")" ] && break
+        [[ -z "$(ls -A "$tmproot")" ]] && break
         rm -rf "$(find "$tmproot" -type f | tail -n1)"
     done
 }
