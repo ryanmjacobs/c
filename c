@@ -153,11 +153,17 @@ for f in ${comp[@]}; do
     fi
 done
 
-# link stdc++ if necessary
-[[ "$cpp" == true ]] && comp+=("-lstdc++")
+# C or C++?
+if [[ "$cpp" == true ]]; then
+    comp+=($CXXFLAGS)
+    comp+=("-lstdc++")
+    type "$CXX" &>/dev/null && CC="$CXX"
+else
+    comp+=($CFLAGS)
+fi
 
 # compile and run
-if "$CC" -O2 $CFLAGS -o "$binname" ${comp[@]} $includes; then
+if "$CC" -O2 -o "$binname" ${comp[@]} $includes; then
     run "$@"
 else
     return 1
