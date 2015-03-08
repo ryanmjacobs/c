@@ -91,7 +91,21 @@ if ! type "$shasum" &>/dev/null; then
     shasum="shasum"
 fi
 
+# determine if we are C or C++, then use appropriate flags
+for f in ${comp[@]}; do
+    if [[ -f "$f" && "$f" =~ \.(cc|c\+\+|cpp|cxx)$ ]]; then
+        comp+=($CXXFLAGS "-lstdc++")
+        type "$CXX" &>/dev/null && CC="$CXX"
+        break
+    else
+        comp+=($CFLAGS)
+        break
+    fi
+done
+comp+=($CPPFLAGS)
+
 # create calculated biname
+cachename="$("$shasum" <<< "$CC")"
 for f in ${comp[@]}; do
     # first, append sha1sums of all files and options into one long string
     if [[ -f "$f" ]]; then
@@ -105,6 +119,8 @@ done
 sha="$("$shasum" <<< $cachename | cut -d' ' -f1)"
 tmpdir="$tmproot/dir.$sha"
 binname="$tmproot/$sha"
+
+echo $binname
 
 # run binary
 run() {
@@ -143,28 +159,16 @@ for f in ${comp[@]}; do
     let i++
 done
 
+# remove shebangs
 for f in ${comp[@]}; do
-    # for C++ files
-    [[ "$f" =~ \.(cc|c\+\+|cpp|cxx)$ ]] && cpp=true
-
-    # remove shebangs
     if [[ -f "$f" ]] && [[ "$(head -n1 "$f")" == \#\!* ]]; then
         echo "$(tail -n +2 "$f")" > "$f"
     fi
 done
 
-# C or C++?
-if [[ "$cpp" == true ]]; then
-    comp+=($CXXFLAGS)
-    comp+=("-lstdc++")
-    type "$CXX" &>/dev/null && CC="$CXX"
-else
-    comp+=($CFLAGS)
-fi
-
 # compile and run
 if "$CC" -O2 -o "$binname" ${comp[@]} $includes; then
     run "$@"
 else
-    return 1
+    exit 1
 fi
