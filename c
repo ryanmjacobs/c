@@ -120,8 +120,6 @@ sha="$("$shasum" <<< $cachename | cut -d' ' -f1)"
 tmpdir="$tmproot/dir.$sha"
 binname="$tmproot/$sha"
 
-echo $binname
-
 # run binary
 run() {
     trap cleanup SIGINT
