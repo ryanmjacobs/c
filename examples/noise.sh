@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 ################################################################################
 # I found a really cool idea online, and just wanted to post it here...
 #
