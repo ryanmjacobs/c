@@ -21,7 +21,17 @@ if type aplay; then
 elif type play; then
     play_cmd="play -c2 -b 8 -e unsigned-integer -traw"
 else
-    echo "error: could not find 'play' or 'aplay'"
+    >&2 echo "error: could not find 'play' or 'aplay'"
+    exit 1
+fi
+
+# determine where c is...
+if type ../c; then
+    c="../c"
+elif type c; then
+    c="c"
+else
+    >&2 echo "error: you don't have c installed!"
     exit 1
 fi
 
