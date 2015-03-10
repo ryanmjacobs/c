@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ################################################################################
-# I found a really cool idea online, and just wanted to post it here...
+# I found this really cool idea online, and just wanted to post it here...
 #
 # Run it with: ./noise.sh
 #
