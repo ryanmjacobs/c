@@ -44,7 +44,7 @@ algo() {
     samples=$2
     rate=$3
 
-  { ../c "-std=c99" << EOF
+  { "$c" "-std=c99" << EOF
     #include <stdio.h>
     void main(void) {
         for (int t=0; t < $samples; t++) { $algo }
