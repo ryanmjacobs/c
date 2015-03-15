@@ -181,7 +181,7 @@ Where "INSTALL_PREFIX" is the installation directory.
 curl -s https://raw.githubusercontent.com/ellzey/c/master/install.sh | INSTALL_PREFIX=~/bin bash /dev/stdin inst
 ```
 
-![Install SS](http://i.imgur.com/ptchRJt.png)
+![Install SS](http://i.imgur.com/9Gq3UHx.png)
 
 ## License
 ```
