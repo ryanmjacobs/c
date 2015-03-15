@@ -172,8 +172,16 @@ Use a package manager? You've come to the right place.
 AUR: https://aur.archlinux.org/packages/c/<br>
 bpkg: `bpkg install ryanmjacobs/c`
 
-## Todo
-~~Maybe later we can implement caching.~~ Done!
+### Installing / Uninstalling using curl or the commandline 
+
+Where "INSTALL_PREFIX" is the installation directory.
+
+
+```
+curl -s https://raw.githubusercontent.com/ellzey/c/master/install.sh | INSTALL_PREFIX=~/bin bash /dev/stdin inst
+```
+
+![Install SS](http://i.imgur.com/ptchRJt.png)
 
 ## License
 ```
