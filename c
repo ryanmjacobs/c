@@ -152,7 +152,15 @@ for f in ${comp[@]}; do
     if [[ -f "$f" && "$f" != $tmpdir* ]]; then
         mkdir -p "$tmpdir/$(dirname "$f")"
         cp "$f" "$tmpdir/$f"
-        comp[$i]="$tmpdir/$f"
+
+        # assume language is C, if no extension is given
+        base="$(basename "$f")"
+        ext="${base##*.}"
+        if [[ "$ext" == "$base" ]]; then
+            comp[$i]="-x c $tmpdir/$f -x none"
+        else
+            comp[$i]="$tmpdir/$f"
+        fi
     fi
     let i++
 done
