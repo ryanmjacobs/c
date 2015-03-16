@@ -168,5 +168,6 @@ done
 if "$CC" -O2 -o "$binname" ${comp[@]} $includes; then
     run "$@"
 else
+    cleanup
     exit 1
 fi
