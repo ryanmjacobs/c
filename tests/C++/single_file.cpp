@@ -1,4 +1,4 @@
-#!../../c multi_file_2.cpp -Wall -Werror -lm --
+#!../../c -Wall -Werror -lm --
 #include <math.h>
 #include <stdio.h>
 
