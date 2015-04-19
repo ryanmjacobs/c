@@ -5,7 +5,7 @@
 
 help_msg() {
     >&$1 echo "Usage: $0 [file.c ... | compiler_options ...] [program arguments]"
-    >&$1 echo "Execute C progams from the command line."
+    >&$1 echo "Execute C programs from the command line."
     >&$1 echo
     >&$1 echo "  Ex: c main.c"
     >&$1 echo "  Ex: c main.c arg1 arg2"
