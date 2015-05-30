@@ -19,8 +19,8 @@ run() {
             3) assert "argv[1]" "'$line' == 'arg1'";;
             4) assert "argv[2]" "'$line' == 'arg2'";;
             5) assert "argv[3]" "'$line' == 'arg three'";;
-            5) assert "argv[4]" "'$line' == 'arg four'";;
-            6) assert "pow()  " "'$line' -eq 1024";;
+            6) assert "argv[4]" "'$line' == 'arg four'";;
+            7) assert "pow()  " "'$line' -eq 1024";;
         esac
         let n++
     done <<< "$out"

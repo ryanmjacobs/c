@@ -12,7 +12,7 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < 5; i++)
         puts(argv[i]);
 
     print_pow();
