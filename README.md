@@ -170,8 +170,9 @@ Then you can run files with `./file.c` without `chmod +x`.
 Use a package manager? You've come to the right place.
 
 AUR: https://aur.archlinux.org/packages/c/<br>
-bpkg: `bpkg install ryanmjacobs/c`
+bpkg: `bpkg install ryanmjacobs/c`<br>
 brew: `brew install https://raw.githubusercontent.com/ryanmjacobs/c/master/c.rb`
+(shebang path is `/usr/local/bin/c`)<br>
 
 ## Todo
 ~~Maybe later we can implement caching.~~ Done!
