@@ -171,6 +171,7 @@ Use a package manager? You've come to the right place.
 
 AUR: https://aur.archlinux.org/packages/c/<br>
 bpkg: `bpkg install ryanmjacobs/c`
+brew: `brew install https://raw.githubusercontent.com/ryanmjacobs/c/master/c.rb`
 
 ## Todo
 ~~Maybe later we can implement caching.~~ Done!
