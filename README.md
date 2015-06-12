@@ -67,7 +67,7 @@ Note: if you install it somewhere other than `/usr/bin/c`, then your shebang wil
 For example it may be something more similar to `#!/home/ryan/.bin/c`.
 
 ## Okay, how do I use it?
-c will use whatever $CC is set to. You can change this with:
+c will use whatever `$CC` is set to. You can change this with:
 ```bash
 $ export CC=clang
 $ export CC=tcc
@@ -135,7 +135,7 @@ $ export C_CACHE_PATH="/tmp/the_cache"
 Feel free to submit any ideas, questions, or problems by reporting an issue.
 Or, if you're feeling bit brave, submit a pull request. :grimacing:
 
-Just hack away and make sure that all of the tests pass.
+Just hack away and make sure that all the tests pass.
 ```bash
 $ cd tests
 $ ./test.sh
@@ -172,7 +172,7 @@ Use a package manager? You've come to the right place.
 AUR: https://aur.archlinux.org/packages/c/<br>
 bpkg: `bpkg install ryanmjacobs/c`<br>
 brew: `brew install https://raw.githubusercontent.com/ryanmjacobs/c/master/c.rb`
-(shebang path will be `/usr/local/bin/c`)<br>
+(shebang will be `#!/usr/local/bin/c`)<br>
 
 ## Todo
 ~~Maybe later we can implement caching.~~ Done!
