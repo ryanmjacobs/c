@@ -143,7 +143,7 @@ $ ./test.sh
 
 ## Why?
 First of all, I want to clarify why this is **not** the same as `tcc -run`.
-TCC is a compiler. We all know that. TCC will preform its own set of
+TCC is a compiler. We all know that. TCC will perform its own set of
 optimizations, just as GCC will perform its own and Clang will perform its own.
 The purpose of this script is to give a simple front-end to your favorite
 compiler.
