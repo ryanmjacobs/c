@@ -28,7 +28,7 @@ header2() { echo -e "${italics}${yellow}$@${nc}"; }
 assert() {
     echo -en "${cyan}$1${nc} - "
 
-    if `eval "test $2"`; then
+    if `eval "[[ $2 ]]"`; then
         echo -e "${green}pass: $2${nc}" 1>&2
         let PASSES++
     else

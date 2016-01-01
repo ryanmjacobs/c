@@ -3,7 +3,7 @@
 pushd stdin
 
 ##
-# Test #3: Compile files from stdin.
+# Test #5: Compile files from stdin.
 #
 # $1="command to run C file"
 # $2="expected value of argv[0]"
