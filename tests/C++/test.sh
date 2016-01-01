@@ -3,7 +3,7 @@
 pushd C++
 
 ##
-# Test #1: Compile C++.
+# Test #4: Compile C++.
 #
 # $1="command to run C++ file"
 # $2="expected value of argv[0]"
