@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
-# max cachesize in kilobytes
+# max cachesize in kilobytes (default=5MB)
 [[ -z "$C_CACHE_SIZE" ]] && C_CACHE_SIZE=$((5*1024))
+if ! [[ "$C_CACHE_SIZE" =~ ^[0-9]*$ ]]; then
+    C_CACHE_SIZE=$((5*1024))
+    >&2 echo "warning: \$C_CACHE_SIZE should be a positive integer"
+fi
 
 help_msg() {
     >&$1 echo "Usage: $0 [file.c ... | compiler_options ...] [program arguments]"
