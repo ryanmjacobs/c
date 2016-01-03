@@ -96,14 +96,13 @@ if ! type "$shasum" &>/dev/null; then
 fi
 
 # determine if we are C or C++, then use appropriate flags
-for f in ${comp[@]}; do
+for f in "${comp[@]}"; do
     if [[ -f "$f" && "$f" =~ \.(cc|c\+\+|cpp|cxx)$ ]]; then
         comp+=($CXXFLAGS "-lstdc++")
         type "$CXX" &>/dev/null && CC="$CXX"
         break
     else
         comp+=($CFLAGS)
-        break
     fi
 done
 comp+=($CPPFLAGS)
