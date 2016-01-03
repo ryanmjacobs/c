@@ -41,8 +41,9 @@ if [[ "$1" == "--help" || "$1" == "-h" ]]; then
     exit 0
 fi
 
-# ensure our $CC variable is set
-[[ -z "$CC" ]] && CC=cc
+# ensure our $CC and $CXX variables are set
+[[ -z "$CC" ]]  && CC=cc
+[[ -z "$CXX" ]] && CXX=c++
 if ! type "$CC" &>/dev/null; then
     >&2 echo "error: \$CC ($CC) not found"
     exit 1
@@ -96,15 +97,34 @@ if ! type "$shasum" &>/dev/null; then
 fi
 
 # determine if we are C or C++, then use appropriate flags
-for f in "${comp[@]}"; do
-    if [[ -f "$f" && "$f" =~ \.(cc|c\+\+|cpp|cxx)$ ]]; then
-        comp+=($CXXFLAGS "-lstdc++")
-        type "$CXX" &>/dev/null && CC="$CXX"
+is_cpp=false
+for f in "$fname" "${comp[@]}"; do
+    # only examine files
+    [[ ! -f "$f" ]] && continue
+
+    # if one file has a C++ extension, then the whole set is C++
+    if [[ "$f" =~ \.(cc|c\+\+|cpp|cxx)$ ]]; then
+        is_cpp=true
+
+        if type "$CXX" &>/dev/null; then
+            # found $CXX, we will use that
+            CC="$CXX"
+            comp+=($CXXFLAGS)
+        else
+            # couldn't find $CXX, so we make do with $CC and -lstdc++
+            comp+=($CFLAGS "-lstdc++")
+        fi
+
         break
-    else
-        comp+=($CFLAGS)
     fi
 done
+
+# add $CFLAGS if and only if we are not C++
+if [[ "$is_cpp" == false ]]; then
+    comp+=($CFLAGS)
+fi
+
+# add preprocessor flags
 comp+=($CPPFLAGS)
 
 # create calculated biname
