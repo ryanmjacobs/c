@@ -15,7 +15,7 @@ void _hstrerror(int err) {
             fputs("error: host is unknown", stderr);
             break;
 
-        case NO_ADDRESS:
+        case NO_DATA:
             fputs("error: name is valid but has no IP address", stderr);
             break;
 
