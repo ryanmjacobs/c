@@ -9,5 +9,6 @@ source ./complex_arguments/test.sh
 source ./stdin/test.sh
 source ./C++/test.sh
 source ./shell/test.sh
+source ./examples/test.sh
 
 quit
