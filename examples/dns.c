@@ -1,4 +1,4 @@
-#!/usr/bin/c
+#!/usr/bin/c -Wall -std=c89 -pedantic --
 #define _DEFAULT_SOURCE
 
 #include <stdio.h>
