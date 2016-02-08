@@ -1,4 +1,4 @@
-#!/usr/bin/c
+#!../c
 #include <iostream>
 
 using namespace std;
