@@ -83,8 +83,6 @@ init(void)
 int
 main(int argc, char **argv)
 {
-  puts(argv[0]);
-
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
   glutCreateWindow("red 3D lighted cube");
