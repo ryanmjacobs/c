@@ -1,4 +1,4 @@
-#!/usr/bin/c -lglut -lGLU -lGL -lXmu -lXext -lX11 -lm --
+#!../c -lglut -lGLU -lGL -lXmu -lXext -lX11 -lm --
 
 /* Copyright (c) Mark J. Kilgard, 1994, 1997.  */
 

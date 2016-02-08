@@ -1,4 +1,4 @@
-#!/usr/bin/c
+#!../c
 #include <stdio.h>
 
 int main(void) {

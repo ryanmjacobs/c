@@ -1,4 +1,4 @@
-#!/usr/bin/c -ljansson -lcurl --
+#!../c -ljansson -lcurl --
 /*
  * Copyright (c) 2009-2014 Petri Lehtinen <petri@digip.org>
  *

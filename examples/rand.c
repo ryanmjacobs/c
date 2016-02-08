@@ -1,4 +1,4 @@
-#!/usr/bin/c -std=c99 --
+#!../c -std=c99 --
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
