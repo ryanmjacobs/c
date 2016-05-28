@@ -51,15 +51,15 @@ Use a package manager? [Check here](https://github.com/ryanmjacobs/c#packages).
 
 For all users:
 ```bash
-$ git clone https://github.com/ryanmjacobs/c
-$ sudo cp ./c/c /usr/bin/c
+$ wget https://raw.githubusercontent.com/ryanmjacobs/c/master/c
+$ sudo cp c /usr/bin/c
 ```
 
 Just for a local user:
 ```bash
-$ git clone https://github.com/ryanmjacobs/c
+$ wget https://raw.githubusercontent.com/ryanmjacobs/c/master/c
 $ mkdir -p ~/.bin
-$ cp ./c/c ~/.bin/c
+$ cp c ~/.bin/c
 $ echo 'PATH=$PATH:$HOME/.bin' >> ~/.bashrc
 ```
 
