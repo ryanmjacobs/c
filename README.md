@@ -52,14 +52,13 @@ Use a package manager? [Check here](https://github.com/ryanmjacobs/c#packages).
 For all users:
 ```bash
 $ wget https://raw.githubusercontent.com/ryanmjacobs/c/master/c
-$ sudo cp c /usr/bin/c
+$ sudo install -Dm 755 c /usr/bin/c
 ```
 
 Just for a local user:
 ```bash
 $ wget https://raw.githubusercontent.com/ryanmjacobs/c/master/c
-$ mkdir -p ~/.bin
-$ cp c ~/.bin/c
+$ sudo install -Dm 755 c ~/.bin/c
 $ echo 'PATH=$PATH:$HOME/.bin' >> ~/.bashrc
 ```
 
