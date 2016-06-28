@@ -54,7 +54,8 @@ fi
 for arg in $1; do
     if [[ "$arg" == "--" ]]; then
         fname="$2"
-        comp+=("$2")
+        comp=("$2" "${comp[@]}")
+        # comp+=("$2")
         shift
     else
         comp+=("$arg")
