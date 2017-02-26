@@ -82,7 +82,7 @@ fi
 mkdir -p "$tmproot"
 
 # create stdin file if we need it
-if [[ ! -t 0 ]]; then
+if [[ $# -eq 0 ]]; then
     fname="stdin"
     stdin="$tmproot/stdin.c"
     comp+=("$stdin")
