@@ -173,8 +173,16 @@ bpkg: `bpkg install ryanmjacobs/c`<br>
 brew: `brew install https://raw.githubusercontent.com/ryanmjacobs/c/master/c.rb`
 (shebang will be `#!/usr/local/bin/c`)<br>
 
-## Todo
-~~Maybe later we can implement caching.~~ Done!
+### Installing / Uninstalling using curl or the commandline 
+
+Where "INSTALL_PREFIX" is the installation directory.
+
+
+```
+curl -s https://raw.githubusercontent.com/ellzey/c/master/install.sh | INSTALL_PREFIX=~/bin bash /dev/stdin inst
+```
+
+![Install SS](http://i.imgur.com/9Gq3UHx.png)
 
 ## License
 [MIT License](https://raw.githubusercontent.com/ryanmjacobs/c/master/LICENSE).
