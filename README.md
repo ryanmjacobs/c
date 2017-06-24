@@ -132,7 +132,7 @@ $ export C_CACHE_PATH="/tmp/the_cache"
 
 # Contributing
 Feel free to submit any ideas, questions, or problems by reporting an issue.
-Or, if you're feeling bit brave, submit a pull request. :grimacing:
+Or, if you're feeling a bit brave, submit a pull request. :grimacing:
 
 Just hack away and make sure that all the tests pass.
 ```bash
