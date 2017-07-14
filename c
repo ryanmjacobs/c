@@ -43,6 +43,7 @@ fi
 
 # ensure our $CC and $CXX variables are set
 [[ -z "$CC" ]]  && CC=cc
+[[ -z "$FC" ]]  && FC=gfortran
 [[ -z "$CXX" ]] && CXX=c++
 if ! type "$CC" &>/dev/null; then
     >&2 echo "error: \$CC ($CC) not found"
@@ -96,8 +97,9 @@ if ! type "$shasum" &>/dev/null; then
     shasum="shasum"
 fi
 
-# determine if we are C or C++, then use appropriate flags
+# determine if we are C, C++ or Fortran, then use appropriate flags
 is_cpp=false
+is_fortran=false
 for f in "$fname" "${comp[@]}"; do
     # only examine files
     [[ ! -f "$f" ]] && continue
@@ -117,10 +119,22 @@ for f in "$fname" "${comp[@]}"; do
 
         break
     fi
+
+    # if one file has a Fortran extension, then the whole set is Fortran
+    # We have to check case insensitive because many fortran suffixes are
+    # uppercase
+    shopt -s nocasematch
+    if [[ "$f" =~ \.(f|f95|f77|f90|f03|f15|for)$ ]]; then
+      is_fortran=true
+      CC="${FC}"
+      comp+=(${FCFLAGS})
+    fi
+    shopt -u nocasematch
+
 done
 
 # add $CFLAGS if and only if we are not C++
-if [[ "$is_cpp" == false ]]; then
+if [[ "$is_cpp" == false && "${is_fortran}" == false ]]; then
     comp+=($CFLAGS)
 fi
 
