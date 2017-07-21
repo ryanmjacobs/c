@@ -61,7 +61,7 @@ for arg in $1; do
     fi
 done
 
-# If we don't have an fname yet, pick one out of $comp
+# if we don't have an fname yet, pick one out of $comp
 # that doesn't start with a '-'
 if [[ -z "$fname" ]]; then
     for arg in $1; do
