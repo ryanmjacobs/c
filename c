@@ -8,7 +8,7 @@ if ! [[ "$C_CACHE_SIZE" =~ ^[0-9]*$ ]]; then
 fi
 
 help_msg() {
-    >&$1 echo "Usage: $0 [file.c ... | compiler_options ...] [program arguments]"
+    >&$1 echo "Usage: $(basename "$0") [file.c ... | compiler_options ...] [program_arguments]"
     >&$1 echo "Execute C programs from the command line."
     >&$1 echo
     >&$1 echo "  Ex: c main.c"
