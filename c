@@ -22,9 +22,11 @@ cleanup() {
     # remove $tmpdir, which holds source code
     rm -rf "$tmpdir" "$tmproot/stdin.c"
 
-    # remove cache files until we are under $cachesize
-    if [ `uname -s` == "SunOS" ] ; then ducmd="du -ks" ; else ducmd="du -kc" ; fi
-    while [[ "$($ducmd "$tmproot" | tail -1 | cut -f1)" -gt "$C_CACHE_SIZE" ]]; do
+    # current cachesize
+    size="$(du --block-size=1024 -s "$tmproot" | tail -n1 | cut -f1)"
+
+    # remove cache files until we are under the maximum cache size (C_CACHE_SIZE)
+    while [[ "$size" -gt "$C_CACHE_SIZE" ]]; do
         [[ -z "$(ls -A "$tmproot")" ]] && break
         rm -rf "$(find "$tmproot" -type f | tail -n1)"
     done
