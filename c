@@ -28,7 +28,7 @@ cleanup() {
     # remove cache files until we are under the maximum cache size (C_CACHE_SIZE)
     while [[ "$size" -gt "$C_CACHE_SIZE" ]]; do
         [[ -z "$(ls -A "$tmproot")" ]] && break
-        rm -rf "$(find "$tmproot" -type f | tail -n1)"
+        rm -rf "$(find "$tmproot" | tail -n1)"
     done
 }
 
