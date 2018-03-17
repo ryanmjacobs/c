@@ -181,7 +181,7 @@ for f in ${comp[@]}; do
 done
 
 # compile and run
-if "$CC" -O2 -o "$binname" ${comp[@]} $includes; then
+if eval "$CC" -O2 -o "$binname" ${comp[@]} $includes; then
     run "$@"
 else
     cleanup
