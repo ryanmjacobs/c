@@ -8,8 +8,10 @@ files=("dns.c" "hello.c" "hello.cpp" "rand.c")
 returns=(1 0 0 0 1)
 
 for i in `seq 0 $((${#files[@]} - 1))`; do
-    "../examples/${files[$i]}"; ret=$?
-    assert "return" "$ret -eq ${returns[$i]}"
+    for shebang in $c ""; do
+        eval $shebang ../examples/${files[$i]}
+        assert "return" "$? -eq ${returns[$i]}"
+    done
 done
 
 echo
