@@ -1,4 +1,4 @@
-#!/../c
+#!../../c
 #include <stdio.h>
 #include "a.h"
 #include "c/c.h"
