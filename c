@@ -8,19 +8,19 @@ if ! [[ "$C_CACHE_SIZE" =~ ^[0-9]*$ ]]; then
 fi
 
 help_msg() {
-    >&$1 echo "Usage: $(basename "$0") [file.c ... | compiler_options ...] [program_arguments]"
+    >&$1 echo "Usage: $(basename "$0") <file.c ... | compiler_options ...> [program_arguments]"
     >&$1 echo 'Execute C programs from the command line.'
     >&$1 echo
     >&$1 echo '  Ex: c main.c'
     >&$1 echo '  Ex: c main.c arg1 arg2'
-    >&$1 echo '  Ex: c "main.c other.c" arg1 arg2'
-    >&$1 echo '  Ex: c "main.c -lncurses" arg1 arg2'
+    >&$1 echo "  Ex: c \"main.c other.c\" arg1 arg2"
+    >&$1 echo "  Ex: c \"main.c -lncurses\" arg1 arg2"
     >&$1 echo
 }
 
 cleanup() {
-    # remove $tmpdir, which holds source code
-    rm -rf "$tmpdir" "$tmproot/stdin.c"
+    # remove temporary source directory
+    rm -rf "$tmpdir"
 
     # current cachesize
     size="$(du --block-size=1024 -s "$tmproot" | tail -n1 | cut -f1)"
@@ -32,17 +32,9 @@ cleanup() {
     done
 }
 
-# help if we have no arguments and no stdin
-if [[ $# -eq 0 && -t 0 ]]; then
-    help_msg 2
-    exit 1
-fi
-
-# help if we get the flags
-if [[ "$1" == "--help" || "$1" == "-h" ]]; then
-    help_msg 1
-    exit 0
-fi
+# Handle --help, -h, and zero args
+[[ "$1" == "--help" || "$1" == "-h" ]] && { help_msg 1; exit 0; }
+[[ "$#" -lt 1 ]] && { help_msg 2; exit 1; }
 
 # ensure our $CC and $CXX variables are set
 [[ -z "$CC" ]]  && CC=cc
@@ -83,16 +75,6 @@ else
     tmproot="$TMPDIR/c.cache"
 fi
 mkdir -p "$tmproot"
-
-# create stdin file if we need it
-if [[ ! -t 0 ]]; then
-    fname="stdin"
-    stdin="$tmproot/stdin.c"
-    comp+=("$stdin")
-
-    cat <&0 >$stdin # useless use of cat?
-fi
-0<&-
 
 # decide on a hash function by using the first one we find
 potential_hashes=(md5sum sha256sum sha1sum shasum)
