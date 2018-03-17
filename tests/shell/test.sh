@@ -56,6 +56,6 @@ assert "one file" "'$out' == '(a) (b c) (d)'"
 
 # shebang
 out=$(with\ spaces/a\ b.c a 'b c' d 2>&1)
-assert "shebang" "'$out' == '(a) (b c) (d)'"
+assert " shebang" "'$out' == '(a) (b c) (d)'"
 
 popd; echo
