@@ -3,4 +3,3 @@ compiler:
     - gcc
     - clang
 script: (cd tests; ./test.sh)
-

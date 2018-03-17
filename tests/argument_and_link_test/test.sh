@@ -48,4 +48,3 @@ header2 "Multi. File - Shebang"
 run "./multi_file_1.c\
          arg1 arg2 'arg three'" "./multi_file_1.c"
 popd; echo
-

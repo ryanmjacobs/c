@@ -58,4 +58,3 @@ algo $tiznut 52000  8000
 algo $xkcdb  100000 8000
 algo $tiznut 250000 48000
 algo $jeteez 100000 8000
-

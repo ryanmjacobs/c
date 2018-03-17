@@ -11,4 +11,3 @@ class C < Formula
     pipe_output("#{bin}/c", "int main(void){return 0;}", 0)
   end
 end
-

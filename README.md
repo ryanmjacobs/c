@@ -182,4 +182,3 @@ brew: `brew install https://raw.githubusercontent.com/ryanmjacobs/c/master/c.rb`
 Basically, you can do whatever you want provided that you include
 the LICENSE notice in any copy of the source. Also, I am not liable
 if the script breaks anything.
-
