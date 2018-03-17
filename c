@@ -13,8 +13,8 @@ help_msg() {
     >&$1 echo
     >&$1 echo '  Ex: c main.c'
     >&$1 echo '  Ex: c main.c arg1 arg2'
-    >&$1 echo "  Ex: c \"main.c other.c\" arg1 arg2"
-    >&$1 echo "  Ex: c \"main.c -lncurses\" arg1 arg2"
+    >&$1 echo "  Ex: c 'main.c other.c' arg1 arg2"
+    >&$1 echo "  Ex: c 'main.c -lncurses' arg1 arg2"
     >&$1 echo
 }
 
