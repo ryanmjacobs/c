@@ -109,17 +109,6 @@ Then be sure to add the terminating `--` characters.
 #!/usr/bin/c file1.c file2.c -lncurses -lm --
 ```
 
-## Compiling from stdin
-```c
-$ cat hello.c | c
-# ...or...
-$ c < hello.c
-```
-```c
-$ c "" arg1 arg2 < hello.c
-$ c "other.c -lncurses" arg1 arg2 < hello.c
-```
-
 ## Caching
 The default cache size is set to 5 MB. You can change this with:
 ```bash
