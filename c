@@ -182,24 +182,25 @@ for f in "${comp[@]}"; do
 done
 
 # final operations before compilation
-final_comp=()
+rest=()
+flags=()
 for f in "${comp[@]}"; do
+    # skip empty elements
+    [[ -z "$f" ]] && break
+
     # remove shebangs
     if [[ -f "$f" ]] && [[ "$(head -n1 "$f")" == \#\!* ]]; then
         echo "$(tail -n +2 "$f")" > "$f"
     fi
 
-    [[ -n "$f" ]] && final_comp+=("$f")
-done
-
-i=0
-for c in "${final_comp[@]}"; do
-    let i++
-    echo $i "$c"
+    # separate the flags from other arguments
+    [[ "$f" =~ ^- ]] &&\
+        flags+=("$f") ||\
+        rest+=("$f")
 done
 
 # compile and run
-if "$CC" -O2 -o "$binname" "${final_comp[@]}" "${includes[@]}"; then
+if "$CC" -O2 -o "$binname" ${flags[@]} "${includes[@]}" "${rest[@]}"; then
     run "$@"
 else
     cleanup

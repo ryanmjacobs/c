@@ -7,11 +7,25 @@ header1 "Test #6: Ensure ./examples are running correctly."
 files=("dns.c" "hello.c" "hello.cpp" "rand.c")
 returns=(1 0 0 0 1)
 
-for i in `seq 0 $((${#files[@]} - 1))`; do
-    for shebang in $c ""; do
-        eval $shebang ../examples/${files[$i]}
+for shebang in "" "$c"; do
+    [ -z "$shebang" ] &&\
+        header2 "using shebang" ||\
+        header2 "calling directly"
+
+    for i in `seq 0 $((${#files[@]} - 1))`; do
+        cmd="$shebang ../examples/${files[$i]}"
+
+        # set CFLAGS for non-shebang
+        unset cf
+        [ -n "$shebang" ] && cf="-DRUN -std=c99"
+
+        # run cmd
+        echo $cmd
+        CFLAGS=$cf eval $cmd
+
         assert "return" "$? -eq ${returns[$i]}"
     done
+    echo
 done
 
 echo
