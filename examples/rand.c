@@ -11,9 +11,9 @@ int main(void) {
 #ifdef RUN
     for (int i = 0; i < 10; i++)
         printf("%d\n", rand());
+    return 0;
 #else
     printf("error: compile with flag -DRUN\n");
+    return 1;
 #endif
-
-    return 0;
 }
