@@ -52,7 +52,7 @@ if ! hash "$CC" &>/dev/null; then
     exit 1
 fi
 
-# $comp  holds the files and options that will be passed to the compiler
+# $comp holds the files and options that will be passed to the compiler
 # $fname will become the program's argv[0]
 for arg in $1; do
     if [[ "$arg" == "--" ]]; then
@@ -94,10 +94,11 @@ if [[ ! -t 0 ]]; then
 fi
 0<&-
 
-shasum="sha1sum"
-if ! hash "$shasum" &>/dev/null; then
-    shasum="shasum"
-fi
+# decide on a hash function by using the first one we find
+potential_hashes=(md5sum sha256sum sha1sum shasum)
+for hash_func in "${potential_hashes[@]}"; do
+    hash "$hash_func" && break
+done
 
 # determine if we are C or C++, then use appropriate flags
 is_cpp=false
@@ -130,21 +131,16 @@ fi
 # add preprocessor flags
 comp+=($CPPFLAGS)
 
-# create calculated biname
-cachename="$("$shasum" <<< "$CC")"
-for f in ${comp[@]}; do
-    # first, append sha1sums of all files and options into one long string
-    if [[ -f "$f" ]]; then
-        cachename+="$("$shasum" "$f" | cut -d' ' -f1)"
-    else
-        cachename+="$("$shasum" <<< "$f" | cut -d' ' -f1)"
-    fi
+# hash all of our data
+prehash="$CC ${comp[@]}" # compiler + flags and files
+for f in "${comp[@]}"; do
+    [ -f "$f" ] && prehash+="$(cpp "$f" 2>&1)"
 done
 
-# now sha1sum this so that it fits into a filename
-sha="$("$shasum" <<< $cachename | cut -d' ' -f1)"
-tmpdir="$tmproot/dir.$sha"
-binname="$tmproot/$sha"
+# hash everything into one unique identifier, for caching purposes
+id="$("$hash_func" <<< "$prehash" | cut -d' ' -f1)"
+tmpdir="$tmproot/dir.$id"
+binname="$tmproot/$id"
 
 # run binary
 run() {
