@@ -1,41 +1,18 @@
 #!/bin/bash
 
 pushd stdin
+header1 "Test #3: Run a program that accepts stdin."
 
-##
-# Test #5: Compile files from stdin.
-#
-# $1="command to run C file"
-# $2="expected value of argv[0]"
-##
-run() {
-    out=$(eval "$1")
-    ret=$?
-    n=1
-    while read -r line; do
-        case $n in
-            1) assert "argc   " "'$line' == 'argc=5'";;
-            2) assert "argv[0]" "'$line' == '$2'";;
-            3) assert "argv[1]" "'$line' == 'arg1'";;
-            4) assert "argv[2]" "'$line' == 'arg2'";;
-            5) assert "argv[3]" "'$line' == 'arg three'";;
-            6) assert "argv[4]" "'$line' == 'arg four'";;
-            7) assert "pow()  " "'$line' -eq 1024";;
-        esac
-        let n++
-    done <<< "$out"
-    assert "return " "$ret -eq 123"
-}
+## stdin - Single File, no args
+header2 "stdin - Single File, no args"
+out="$(echo hello world | $c 'stdin.c -Wall -Werror')"
+assert "return" "$? -eq 77"
+assert "output" "'$out' == 'hello world'"
 
-header1 "Test #3: Compile files from stdin."
+## stdin - Single File, with args
+header2 "stdin - Single File, with args"
+out="$(echo hello world | $c 'stdin.c -Wall -Werror' foobar)"
+assert "return" "$? -eq 77"
+assert "output" "'$out' == 'foobarhello world'"
 
-## stdin - Single File
-header2 "stdin - Single File"
-run "$c '-Wall -Werror -lm'\
-         arg1 arg2 'arg three' arg\ four < stdin.c" "stdin"
-
-## stdin - Multi. File
-header2 "stdin - Multi. File"
-run "$c '-Wall -Werror -lm stdin_multi_2.c'\
-         arg1 arg2 'arg three' arg\ four < stdin_multi_1.c" "stdin"
 popd; echo
