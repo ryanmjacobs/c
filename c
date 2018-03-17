@@ -200,7 +200,7 @@ for f in "${comp[@]}"; do
 done
 
 # compile and run
-if "$CC" -O2 -o "$binname" ${flags[@]} "${includes[@]}" "${rest[@]}"; then
+if "$CC" -O2 -o "$binname" ${flags[@]} ${includes[@]} "${rest[@]}"; then
     run "$@"
 else
     cleanup
