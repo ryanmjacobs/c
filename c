@@ -47,7 +47,7 @@ fi
 # ensure our $CC and $CXX variables are set
 [[ -z "$CC" ]]  && CC=cc
 [[ -z "$CXX" ]] && CXX=c++
-if ! type "$CC" &>/dev/null; then
+if ! hash "$CC" &>/dev/null; then
     >&2 echo "error: \$CC ($CC) not found"
     exit 1
 fi
@@ -95,7 +95,7 @@ fi
 0<&-
 
 shasum="sha1sum"
-if ! type "$shasum" &>/dev/null; then
+if ! hash "$shasum" &>/dev/null; then
     shasum="shasum"
 fi
 
@@ -109,7 +109,7 @@ for f in "$fname" "${comp[@]}"; do
     if [[ "$f" =~ \.(cc|c\+\+|cpp|cxx)$ ]]; then
         is_cpp=true
 
-        if type "$CXX" &>/dev/null; then
+        if hash "$CXX" &>/dev/null; then
             # found $CXX, we will use that
             CC="$CXX"
             comp+=($CXXFLAGS)
