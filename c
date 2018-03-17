@@ -192,11 +192,11 @@ for f in "${comp[@]}"; do
     [[ -n "$f" ]] && final_comp+=("$f")
 done
 
-#i=0
-#for c in "${final_comp[@]}"; do
-#    let i++
-#    echo $i "$c"
-#done
+i=0
+for c in "${final_comp[@]}"; do
+    let i++
+    echo $i "$c"
+done
 
 # compile and run
 if "$CC" -O2 -o "$binname" "${final_comp[@]}" "${includes[@]}"; then
