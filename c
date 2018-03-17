@@ -149,9 +149,9 @@ else
 fi
 
 # assemble our includes, based on the original file locations
-includes="-I$(pwd)"
+includes="-I'$PWD'"
 for f in ${comp[@]}; do
-    [[ -f "$f" ]] && includes+=" -I$(dirname "$f")"
+    [[ -f "$f" ]] && includes+=" -I'$(dirname "$f")'"
 done
 
 # copy source files to $tmpdir
