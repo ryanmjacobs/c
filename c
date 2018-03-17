@@ -138,7 +138,7 @@ comp+=($CPPFLAGS)
 # hash all of our data
 prehash="$CC ${comp[@]}" # compiler + flags and files
 for f in "${comp[@]}"; do
-    [ -f "$f" ] && prehash+="$(cpp "$f" 2>&1)"
+    [ -f "$f" ] && prehash+="$f $(cpp "$f" 2>&1)"
 done
 
 # hash everything into one unique identifier, for caching purposes
