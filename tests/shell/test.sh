@@ -55,7 +55,7 @@ out=$($c 'with spaces/a b.c' a 'b c' d 2>&1)
 assert "one file" "'$out' == '(a) (b c) (d)'"
 
 # two files
-out=$($c 'with spaces/a b.c' 'with spaces/c d.c' a 'b c' d 2>&1)
+out=$($c 'with spaces/a b.c with spaces/c_d.c' a 'b c' d 2>&1)
 assert "two files" "'$out' == '(a) (b c) (d)'"
 
 # shebang
