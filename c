@@ -4,17 +4,17 @@
 [[ -z "$C_CACHE_SIZE" ]] && C_CACHE_SIZE=$((5*1024))
 if ! [[ "$C_CACHE_SIZE" =~ ^[0-9]*$ ]]; then
     C_CACHE_SIZE=$((5*1024))
-    >&2 echo "warning: \$C_CACHE_SIZE should be a positive integer"
+    >&2 echo 'warning: $C_CACHE_SIZE should be a positive integer'
 fi
 
 help_msg() {
-    >&$1 echo "Usage: $(basename "$0") [file.c ... | compiler_options ...] [program_arguments]"
-    >&$1 echo "Execute C programs from the command line."
+    >&$1 echo 'Usage: $(basename "$0") [file.c ... | compiler_options ...] [program_arguments]'
+    >&$1 echo 'Execute C programs from the command line.'
     >&$1 echo
-    >&$1 echo "  Ex: c main.c"
-    >&$1 echo "  Ex: c main.c arg1 arg2"
-    >&$1 echo "  Ex: c \"main.c other.c\" arg1 arg2"
-    >&$1 echo "  Ex: c \"main.c -lncurses\" arg1 arg2"
+    >&$1 echo '  Ex: c main.c'
+    >&$1 echo '  Ex: c main.c arg1 arg2'
+    >&$1 echo '  Ex: c "main.c other.c" arg1 arg2'
+    >&$1 echo '  Ex: c "main.c -lncurses" arg1 arg2'
     >&$1 echo
 }
 
