@@ -1,6 +1,8 @@
 #!/bin/bash
 
-header1 "Test #5: Correct script warnings/errors/returns."
+pushd shell
+
+header1 "Test #5: Path handling and misc. outputs."
 
 ## Shell - $C_CACHE_SIZE
 header2 "Shell - \$C_CACHE_SIZE warnings"
@@ -45,4 +47,19 @@ fline="$(echo "$line" | head -n1)"
 assert "c -h" "'$fline' =~ Usage:.*"
 assert "return" "$ret -eq 0"
 
-echo
+## Shell - Compiles with spaces
+header2 "Shell - Compiles with spaces"
+
+# one file
+out=$($c 'with spaces/a b.c' a 'b c' d 2>&1)
+assert "one file" "'$out' == '(a) (b c) (d)'"
+
+# two files
+out=$($c 'with spaces/a b.c' 'with spaces/c d.c' a 'b c' d 2>&1)
+assert "two files" "'$out' == '(a) (b c) (d)'"
+
+# shebang
+out=$(with\ spaces/a\ b.c a 'b c' d 2>&1)
+assert "shebang" "'$out' == '(a) (b c) (d)'"
+
+popd; echo
