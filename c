@@ -142,9 +142,9 @@ for f in "${comp[@]}"; do
 done
 
 # hash everything into one unique identifier, for caching purposes
-id="$("$hash_func" <<< "$prehash" | cut -d' ' -f1)-c"
-tmpdir="$tmproot/dir.$id"
-binname="$tmproot/$id"
+id="c$("$hash_func" <<< "$prehash" | cut -d' ' -f1)"
+tmpdir="$tmproot/$id.src"
+binname="$tmproot/$id.bin"
 
 # run binary
 run() {
