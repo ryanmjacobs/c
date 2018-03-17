@@ -46,25 +46,33 @@ fi
 
 # $comp holds the files and options that will be passed to the compiler
 # $fname will become the program's argv[0]
-for arg in $1; do
-    if [[ "$arg" == "--" ]]; then
-        fname="$2"
-        comp=("$2" "${comp[@]}")
-        shift
-    else
-        comp+=("$arg")
-    fi
-done
-
-# if we don't have an fname yet, pick one out of $comp
-# that doesn't start with a '-'
-if [[ -z "$fname" ]]; then
+if [ -f "$1" ]; then
+    # given only one file, so that must be our source file
+    comp=("$1")
+    fname="$1"
+else
+    # capture all of our source files,
+    # use the first file as our fname
     for arg in $1; do
-        if [[ "$arg" != -* ]]; then
-            fname="$arg"
-            break
+        if [[ "$arg" == "--" ]]; then
+            fname="$2"
+            comp=("$2" "${comp[@]}")
+            shift
+        else
+            comp+=("$arg")
         fi
     done
+
+    # if we don't have an fname yet, pick one out of $comp
+    # that doesn't start with a '-'
+    if [[ -z "$fname" ]]; then
+        for arg in $1; do
+            if [[ "$arg" != -* ]]; then
+                fname="$arg"
+                break
+            fi
+        done
+    fi
 fi
 
 # get cache location
@@ -99,10 +107,10 @@ for f in "$fname" "${comp[@]}"; do
         if hash "$CXX" &>/dev/null; then
             # found $CXX, we will use that
             CC="$CXX"
-            comp+=($CXXFLAGS)
+            comp+=("$CXXFLAGS")
         else
             # couldn't find $CXX, so we make do with $CC and -lstdc++
-            comp+=($CFLAGS "-lstdc++")
+            comp+=("$CFLAGS -lstdc++")
         fi
 
         break
@@ -111,11 +119,11 @@ done
 
 # add $CFLAGS if and only if we are not C++
 if [[ "$is_cpp" == false ]]; then
-    comp+=($CFLAGS)
+    comp+=("$CFLAGS")
 fi
 
 # add preprocessor flags
-comp+=($CPPFLAGS)
+comp+=("$CPPFLAGS")
 
 # hash all of our data
 prehash="$CC ${comp[@]}" # compiler + flags and files
@@ -149,14 +157,14 @@ else
 fi
 
 # assemble our includes, based on the original file locations
-includes="-I'$PWD'"
-for f in ${comp[@]}; do
-    [[ -f "$f" ]] && includes+=" -I'$(dirname "$f")'"
+includes=("-I'$PWD'")
+for f in "${comp[@]}"; do
+    [[ -f "$f" ]] && includes+=("-I'$(dirname "$f")'")
 done
 
-# copy source files to $tmpdir
 i=0
-for f in ${comp[@]}; do
+# copy source files to $tmpdir
+for f in "${comp[@]}"; do
     if [[ -f "$f" && "$f" != $tmpdir* ]]; then
         mkdir -p "$tmpdir/$(dirname "$f")"
         cp "$f" "$tmpdir/$f"
@@ -173,15 +181,19 @@ for f in ${comp[@]}; do
     let i++
 done
 
-# remove shebangs
-for f in ${comp[@]}; do
+# final operations before compilation
+final_comp=()
+for f in "${comp[@]}"; do
+    # remove shebangs
     if [[ -f "$f" ]] && [[ "$(head -n1 "$f")" == \#\!* ]]; then
         echo "$(tail -n +2 "$f")" > "$f"
     fi
+
+    [[ -n "$f" ]] && final_comp+=("$f")
 done
 
 # compile and run
-if eval "$CC" -O2 -o "$binname" ${comp[@]} $includes; then
+if "$CC" -O2 -o "$binname" "${final_comp[@]}" "${includes[@]}"; then
     run "$@"
 else
     cleanup
