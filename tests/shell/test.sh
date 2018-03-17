@@ -40,3 +40,4 @@ assert "c -h" "'$line' =~ Usage:.*"
 assert "return" "$ret -eq 0"
 
 echo
+

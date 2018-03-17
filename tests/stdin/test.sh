@@ -39,3 +39,4 @@ header2 "stdin - Multi. File"
 run "$c '-Wall -Werror -lm stdin_multi_2.c'\
          arg1 arg2 'arg three' arg\ four < stdin_multi_1.c" "stdin"
 popd; echo
+

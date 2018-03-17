@@ -6,3 +6,4 @@
   "install": "mkdir -p ${PREFIX:-/usr}/bin; install -m 775 c ${PREFIX:-/usr}/bin",
   "scripts": [ "c" ]
 }
+
