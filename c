@@ -96,9 +96,13 @@ fi
 
 # decide on a hash function by using the first one we find
 potential_hashes=(md5sum sha256sum sha1sum shasum)
-for hash_func in "${potential_hashes[@]}"; do
-    hash "$hash_func" && break
+hash_func=:
+for hf in "${potential_hashes[@]}"; do
+    hash "$hf" &>/dev/null && { hash_func="$hf"; break; }
 done
+
+# disable caching if we don't locate a hashing function
+[ "$hash_func" == : ] && C_CACHE_SIZE=0
 
 # determine if we are C or C++, then use appropriate flags
 is_cpp=false
@@ -138,7 +142,7 @@ for f in "${comp[@]}"; do
 done
 
 # hash everything into one unique identifier, for caching purposes
-id="$("$hash_func" <<< "$prehash" | cut -d' ' -f1)"
+id="$("$hash_func" <<< "$prehash" | cut -d' ' -f1)-c"
 tmpdir="$tmproot/dir.$id"
 binname="$tmproot/$id"
 
