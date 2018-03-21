@@ -200,7 +200,14 @@ for f in "${comp[@]}"; do
 done
 
 # compile and run
-"$CC" -O2 -o "$binname" ${flags[@]} "${includes[@]}" "${rest[@]}"
+
+# kludgey fix for gcc arguments
+out="$("$CC" -O2 -o "$binname" ${flags[@]} "${includes[@]}" "${rest[@]}" 2>&1)"
+if [ $? -ne 0 ]; then
+    eval "$CC" -O2 -o "$binname" ${flags[@]} "${includes[@]}" "${rest[@]}"
+else
+    echo -n "$out"
+fi
 
 if [ $? -eq 0 ]; then
     run "$@"

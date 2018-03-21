@@ -10,5 +10,6 @@ source ./stdin/test.sh
 source ./C++/test.sh
 source ./shell/test.sh
 source ./examples/test.sh
+source ./header/test.sh
 
 quit
