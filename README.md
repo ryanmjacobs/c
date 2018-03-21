@@ -1,6 +1,8 @@
 # c
 
+<!--
 [![Build Status](https://travis-ci.org/ryanmjacobs/c.svg)](https://travis-ci.org/ryanmjacobs/c)
+-->
 
 > "There isn't much that's special about C. That's one of the reasons why it's fast."
 
