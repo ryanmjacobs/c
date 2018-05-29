@@ -4,13 +4,13 @@
 [![Build Status](https://travis-ci.org/ryanmjacobs/c.svg)](https://travis-ci.org/ryanmjacobs/c)
 -->
 
-> "There isn't much that's special about C. That's one of the reasons why it's fast."
+> "There isn't much that's special about C. That's one of the reasons why it's
+fast."
 
-I love C for its raw speed (although it does have its drawbacks). We
-should all write more C.
+I love C for its raw speed (although it does have its drawbacks). We should
+all write more C.
 
-With this shell script, you can compile and execute C "scripts" in
-one go!
+With this shell script, you can compile and execute C "scripts" in one go!
 
 (Oh yeah, and it works for C++ too.)
 
@@ -64,8 +64,9 @@ $ sudo install -Dm 755 c ~/.bin/c
 $ echo 'PATH=$PATH:$HOME/.bin' >> ~/.bashrc
 ```
 
-Note: if you install it somewhere other than `/usr/bin/c`, then your shebang will be different.
-For example it may be something more similar to `#!/home/ryan/.bin/c`.
+Note: if you install it somewhere other than `/usr/bin/c`, then your shebang
+will be different. For example it may be something more similar to
+`#!/home/ryan/.bin/c`.
 
 ## Okay, how do I use it?
 c will use whatever `$CC` is set to. You can change this with:
@@ -134,8 +135,8 @@ $ ./test.sh
 ## Why?
 First of all, I want to clarify why this is **not** the same as `tcc -run`.
 TCC is a compiler. We all know that. TCC will perform its own set of
-optimizations, just as GCC will perform its own and Clang will perform its own.
-The purpose of this script is to give a simple front-end to your favorite
+optimizations, just as GCC will perform its own and Clang will perform its
+own. The purpose of this script is to give a simple front-end to your favorite
 compiler.
 
 Whether it's GCC, Clang, or something else entirely, **you** get to choose
