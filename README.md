@@ -51,7 +51,7 @@ Hello World!
 ## Hooked? Here's how to install it:
 Use a package manager? [Check here](https://github.com/ryanmjacobs/c#packages).
 
-For all users:
+For the entire system:
 ```bash
 $ wget https://raw.githubusercontent.com/ryanmjacobs/c/master/c
 $ sudo install -Dm 755 c /usr/bin/c
@@ -60,7 +60,7 @@ $ sudo install -Dm 755 c /usr/bin/c
 $ sudo install -Dm 755 c /usr/local/bin/c
 ```
 
-Just for a local user:
+For your local user only:
 ```bash
 $ wget https://raw.githubusercontent.com/ryanmjacobs/c/master/c
 $ sudo install -Dm 755 c ~/.bin/c
