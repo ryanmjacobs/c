@@ -55,6 +55,9 @@ For all users:
 ```bash
 $ wget https://raw.githubusercontent.com/ryanmjacobs/c/master/c
 $ sudo install -Dm 755 c /usr/bin/c
+
+# Or... for systems that prefer /usr/local/bin (e.g. MacOS)
+$ sudo install -Dm 755 c /usr/local/bin/c
 ```
 
 Just for a local user:
