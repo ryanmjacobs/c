@@ -1,6 +1,6 @@
 class C < Formula
   homepage "https://github.com/ryanmjacobs/c"
-  url "https://github.com/ryanmjacobs/c/archive/v0.12.tar.gz"
+  url "https://github.com/ryanmjacobs/c/archive/v0.11.tar.gz"
   sha256 "invalid"
 
   def install
