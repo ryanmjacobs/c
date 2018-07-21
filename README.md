@@ -54,13 +54,10 @@ Use a package manager? [Check here](https://github.com/ryanmjacobs/c#packages).
 For the entire system:
 ```bash
 $ wget https://raw.githubusercontent.com/ryanmjacobs/c/master/c
-$ sudo install -Dm 755 c /usr/bin/c
+$ sudo install -m 755 c /usr/bin/c
 
-# Or... for systems that prefer /usr/local/bin (e.g. MacOS)
-$ sudo install -Dm 755 c /usr/local/bin/c
-
-# Alternatively, if "-Dm" is not supported by your version of install:
-$ sudo install -m 755 c /path/to/install
+# Or... for systems that prefer /usr/local/bin (e.g. macOS)
+$ sudo install -m 755 c /usr/local/bin/c
 ```
 
 For your local user only:
