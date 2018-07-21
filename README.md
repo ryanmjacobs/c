@@ -60,8 +60,7 @@ $ sudo install -Dm 755 c /usr/bin/c
 $ sudo install -Dm 755 c /usr/local/bin/c
 
 # Alternatively, if "-Dm" is not supported by your version of install:
-$ chmod 755 c
-$ sudo install c /path/to/install
+$ sudo install -m 755 c /path/to/install
 ```
 
 For your local user only:
