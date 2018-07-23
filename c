@@ -175,6 +175,11 @@ for f in "${comp[@]}"; do
         else
             comp[$i]="$tmpdir/$f"
         fi
+
+        # remove shebangs from every source file
+        if [[ "$(head -n1 "$tmpdir/$f")" == \#\!* ]]; then
+            echo "$(tail -n +2 "$tmpdir/$f")" > "$tmpdir/$f"
+        fi
     fi
     let i++
 done
@@ -185,11 +190,6 @@ flags=()
 for f in "${comp[@]}"; do
     # skip empty elements
     [[ -z "$f" ]] && break
-
-    # remove shebangs
-    if [[ -f "$f" ]] && [[ "$(head -n1 "$f")" == \#\!* ]]; then
-        echo "$(tail -n +2 "$f")" > "$f"
-    fi
 
     # separate the flags from other arguments
     [[ "$f" =~ ^- ]] &&\
