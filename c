@@ -23,7 +23,7 @@ cleanup() {
     rm -rf "$tmpdir"
 
     # remove cache files until we are under $cachesize
-    if [ `uname -s` == "SunOS" ] ; then ducmd="du -ks" ; else ducmd="du -kc" ; fi
+    if [ "$(uname -s)" == "SunOS" ] ; then ducmd="du -ks" ; else ducmd="du -kc" ; fi
     while [[ "$($ducmd "$tmproot" | tail -1 | cut -f1)" -gt "$C_CACHE_SIZE" ]]; do
         [[ -z "$(ls -A "$tmproot")" ]] && break
         rm -rf "$(find "$tmproot" | tail -n1)"
