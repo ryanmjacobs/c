@@ -17,7 +17,7 @@ help_msg() {
     >&$1 echo "  Ex: c 'main.c -lncurses' arg1 arg2"
     >&$1 echo
 }
-
+#funcion for cleaning
 cleanup() {
     # remove temporary source directory
     rm -rf "$tmpdir"
