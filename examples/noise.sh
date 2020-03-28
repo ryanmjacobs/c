@@ -44,13 +44,14 @@ algo() {
     samples=$2
     rate=$3
 
-  { "$c" "-std=c99" << EOF
+    cat << EOF > .tmp.c
     #include <stdio.h>
     void main(void) {
         for (int t=0; t < $samples; t++) { $algo }
     }
 EOF
-    } | { $play_cmd -r $rate -; }
+    c .tmp.c | $play_cmd -r $rate -
+    rm .tmp.c
 }
 
 # execute each of our algorithms
