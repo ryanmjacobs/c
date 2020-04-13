@@ -1,7 +1,7 @@
 class C < Formula
   homepage "https://github.com/ryanmjacobs/c"
-  url "https://github.com/ryanmjacobs/c/archive/v0.11.tar.gz"
-  sha256 "19b932e0087acf6c639cc5a4fa9a0c87314e62b0561f5517fd7a78e32fb61801"
+  url "https://github.com/ryanmjacobs/c/archive/v0.12.tar.gz"
+  sha256 "9af9a67b8d92b77378bd679bc9274c200f2e8d07f5ed1ff459c6909f3a84a81d"
   head "https://github.com/ryanmjacobs/c.git"
 
   def install
