@@ -80,7 +80,7 @@ if [[ -n "$C_CACHE_PATH" ]]; then
     tmproot="$C_CACHE_PATH"
 else
     [[ -z "$TMPDIR" ]] && TMPDIR="/tmp"
-    tmproot="$TMPDIR/c.cache"
+    tmproot="$TMPDIR/c.cache.$USER"
 fi
 mkdir -p "$tmproot"
 
