@@ -81,6 +81,7 @@ else
     tmproot="$TMPDIR/c.cache.$USER"
 fi
 mkdir -p "$tmproot"
+chmod 700 "$tmproot"
 
 # decide on a hash function by using the first one we find
 potential_hashes=(md5sum sha256sum sha1sum shasum)
