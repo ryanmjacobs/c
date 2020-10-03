@@ -1,4 +1,4 @@
-# c
+# c -The Beginners Guide!
 
 <!--
 [![Build Status](https://travis-ci.org/ryanmjacobs/c.svg)](https://travis-ci.org/ryanmjacobs/c)
