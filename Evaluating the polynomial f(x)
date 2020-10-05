@@ -1,0 +1,24 @@
+#include<stdio.h>
+#include<conio.h>
+int main()
+{
+int n,i,sum=0,a[10],x;
+clrscr();
+printf("enter the number of co-efficients n>=0\n");
+scanf("%d",&n);
+printf("enter the n+1 co-efficients\n");
+for(i=n;i>=0;i--)
+{
+printf("Enter a[%d] th coefficient : ",i);
+scanf("%d",&a[i]);
+}
+printf("enter value of x\n");
+scanf("%d",&x);
+for(i=n;i>0;i--)
+{
+sum=sum*x+a[i];
+}
+sum=sum+a[0];
+printf("the value of sum is %d",sum);
+getch();
+}
