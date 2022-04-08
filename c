@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+## repository at https://github.com/ryanmjacobs/c
 VERSION=v0.14
 
 # max cachesize in kilobytes (default=5MB)
