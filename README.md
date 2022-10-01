@@ -165,8 +165,8 @@ Use a package manager? You've come to the right place.
 
 AUR: https://aur.archlinux.org/packages/c/<br>
 bpkg: `bpkg install ryanmjacobs/c`<br>
-brew: `brew install https://raw.githubusercontent.com/ryanmjacobs/c/master/c.rb`
-(shebang will be `#!/usr/local/bin/c`)<br>
+brew: `brew install c`
+(shebang will be `#!/usr/local/bin/c` for Intel-based Macs or `#!/opt/homebrew/bin/c` for Apple Silicon)<br>
 
 ## Todo
 ~~Maybe later we can implement caching.~~ Done!
