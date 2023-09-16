@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ## repository at https://github.com/ryanmjacobs/c
-VERSION=v0.14
+VERSION=v0.15-dev
 
 # max cachesize in kilobytes (default=5MB)
 [[ -z "$C_CACHE_SIZE" ]] && C_CACHE_SIZE=$((5*1024))
