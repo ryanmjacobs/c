@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Ensure files are loaded relative to test.sh
+cd "$(dirname "$BASH_SOURCE")"
+
 # Load helpers
 source "./test_helpers.sh"
 
