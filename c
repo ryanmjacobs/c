@@ -155,9 +155,14 @@ binname="$tmproot/$id.bin"
 run() {
     trap cleanup SIGINT
 
-    shift
-    (exec -a "$fname" "$binname" "$@")
-    ret=$?
+    if [ -x "$binname" ]; then
+      shift
+      (exec -a "$fname" "$binname" "$@")
+      ret=$?
+    else
+      echo
+      ret=4
+    fi
 
     trap - SIGINT
     cleanup
