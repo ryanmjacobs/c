@@ -12,19 +12,19 @@ line=$(eval "C_CACHE_SIZE=-10 $c" 2>&1); ret=$?
 fline="$(echo "$line" | head -n1)"
 assert "\$C_CACHE_SIZE=-10"\
      "'$fline' =~ warning:\\ \\\$C_CACHE_SIZE\\ should\\ be\\ a\\ positive\\ integer.*"
-assert "return" "$ret -eq 1"
+assert "return" "$ret -eq 2"
 
 # cache=0
 line=$(eval "C_CACHE_SIZE=0 $c" 2>&1); ret=$?
 fline="$(echo "$line" | head -n1)"
 assert "\$C_CACHE_SIZE=0" "'$fline' =~ Usage:.*"
-assert "return" "$ret -eq 1"
+assert "return" "$ret -eq 2"
 
 # cache=10
 line=$(eval "C_CACHE_SIZE=10 $c" 2>&1); ret=$?
 fline="$(echo "$line" | head -n1)"
 assert "\$C_CACHE_SIZE=10" "'$fline' =~ Usage:.*"
-assert "return" "$ret -eq 1"
+assert "return" "$ret -eq 2"
 
 ## Shell - help flags
 header2 "Shell - help flags"
@@ -33,7 +33,7 @@ header2 "Shell - help flags"
 line=$(eval "$c" 2>&1); ret=$?
 fline="$(echo "$line" | head -n1)"
 assert "c" "'$fline' =~ Usage:.*"
-assert "return" "$ret -eq 1"
+assert "return" "$ret -eq 2"
 
 # gives usage with --help
 line=$(eval "$c --help" 2>&1); ret=$?

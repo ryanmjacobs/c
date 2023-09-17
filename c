@@ -34,7 +34,7 @@ cleanup() {
 
 # Handle --help, -h, and zero args
 [[ "$1" == "--help" || "$1" == "-h" ]] && { help_msg 1; exit 0; }
-[[ "$#" -lt 1 ]] && { help_msg 2; exit 1; }
+[[ "$#" -lt 1 ]] && { help_msg 2; exit 2; }
 
 # ensure our $CC and $CXX variables are set
 [[ -z "$CC" ]]  && CC=cc

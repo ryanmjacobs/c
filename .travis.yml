@@ -1,6 +1,0 @@
-language: c
-compiler:
-    - gcc
-    - clang
-    - gfortran
-script: (cd tests; ./test.sh)
