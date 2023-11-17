@@ -11,6 +11,7 @@ fi
 
 help_msg() {
     >&$1 echo "Usage: $(basename "$0") <file.c ... | compiler_options ...> [program_arguments]"
+    >&$1 echo "       $(basename "$0") --clear-cache"
     >&$1 echo 'Execute C programs from the command line.'
     >&$1 echo
     >&$1 echo '  Ex: c main.c'
@@ -35,6 +36,17 @@ cleanup() {
 # Handle --help, -h, and zero args
 [[ "$1" == "--help" || "$1" == "-h" ]] && { help_msg 1; exit 0; }
 [[ "$#" -lt 1 ]] && { help_msg 2; exit 2; }
+
+# get cache location
+if [[ -n "$C_CACHE_PATH" ]]; then
+    tmproot="$C_CACHE_PATH"
+else
+    [[ -z "$TMPDIR" ]] && TMPDIR="/tmp"
+    tmproot="$TMPDIR/c.cache.$USER"
+fi
+
+# Hadle --clear-cache
+[[ "$1" == "--clear-cache" ]] && { rm -rf "$tmproot"; exit 0; }
 
 # ensure our $CC and $CXX variables are set
 [[ -z "$CC" ]]  && CC=cc
@@ -76,13 +88,7 @@ else
     fi
 fi
 
-# get cache location
-if [[ -n "$C_CACHE_PATH" ]]; then
-    tmproot="$C_CACHE_PATH"
-else
-    [[ -z "$TMPDIR" ]] && TMPDIR="/tmp"
-    tmproot="$TMPDIR/c.cache.$USER"
-fi
+# create cache location
 mkdir -p "$tmproot"
 chmod 700 "$tmproot"
 
