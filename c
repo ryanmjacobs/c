@@ -46,7 +46,7 @@ else
 fi
 
 # Hadle --clear-cache
-[[ "$1" == "--clear-cache" ]] && { rm -rf "$tmproot"; exit 0; }
+[[ "$1" == "--clear-cache" ]] && exec rm -rf "$tmproot"
 
 # ensure our $CC and $CXX variables are set
 [[ -z "$CC" ]]  && CC=cc
