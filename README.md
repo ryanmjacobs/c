@@ -125,6 +125,12 @@ The default cache path is set to `$TMPDIR/c.cache`. You can change this with:
 $ export C_CACHE_PATH="/tmp/the_cache"
 ```
 
+### Clear cache
+You can clear the cache with the `--clear-cache` flag:
+```bash
+$ c --clear-cache
+```
+
 # Contributing
 Feel free to submit any ideas, questions, or problems by reporting an issue.
 Or, if you're feeling a bit brave, submit a pull request. :grimacing:
