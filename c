@@ -153,7 +153,7 @@ for f in "${comp[@]}"; do
 done
 
 # hash everything into one unique identifier, for caching purposes
-id="c$("$hash_func" <<< "$prehash" | cut -d' ' -f1)"
+id="${fname##*/}.hash_$("$hash_func" <<< "$prehash" | cut -d' ' -f1)"
 tmpdir="$tmproot/$id.src"
 binname="$tmproot/$id.bin"
 
