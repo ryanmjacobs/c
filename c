@@ -10,14 +10,27 @@ if ! [[ "$C_CACHE_SIZE" =~ ^[0-9]*$ ]]; then
 fi
 
 help_msg() {
-    >&$1 echo "Usage: $(basename "$0") <file.c ... | compiler_options ...> [program_arguments]"
+    >&$1 echo "Usage:"
+    >&$1 echo "       $(basename "$0") '<file.c ... | compiler_options ...>' [program_arguments]"
     >&$1 echo "       $(basename "$0") --clear-cache"
+    >&$1 echo
+    >&$1 echo "Usage for shebang with extra compiler options:"
+    >&$1 echo "       $(basename "$0") '<other.c ... | compiler_options ...> --' <file.c> [program_arguments]"
+    >&$1 echo
     >&$1 echo 'Execute C programs from the command line.'
     >&$1 echo
     >&$1 echo '  Ex: c main.c'
     >&$1 echo '  Ex: c main.c arg1 arg2'
     >&$1 echo "  Ex: c 'main.c other.c' arg1 arg2"
     >&$1 echo "  Ex: c 'main.c -lncurses' arg1 arg2"
+    >&$1 echo
+    >&$1 echo 'Execute C programs when "main.c" is executable with shebang.'
+    >&$1 echo
+    >&$1 echo '  Shebang: #!/usr/bin/env c'
+    >&$1 echo "  Shebang: #!/usr/bin/env -S c 'other.c --'"
+    >&$1 echo "  Shebang: #!/usr/bin/env -S c '-lncurses --'"
+    >&$1 echo '  Ex:      ./main.c'
+    >&$1 echo '  Ex:      ./main.c arg1 arg2'
     >&$1 echo
 }
 
