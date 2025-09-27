@@ -45,7 +45,7 @@ else
     tmproot="$TMPDIR/c.cache.$USER"
 fi
 
-# Hadle --clear-cache
+# Handle --clear-cache
 [[ "$1" == "--clear-cache" ]] && exec rm -rf "$tmproot"
 
 # ensure our $CC and $CXX variables are set
