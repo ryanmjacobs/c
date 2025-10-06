@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # https://github.com/ryanmjacobs/c
 
-readonly VERSION="0.15-dev"
+readonly VERSION="0.15.0"
 
 # max cachesize in kilobytes (default=5MB)
 [[ -z "$C_CACHE_SIZE" ]] && C_CACHE_SIZE=$((5*1024))
@@ -142,7 +142,7 @@ for f in "$fname" "${comp[@]}"; do
     fi
 done
 
-# add $CFLAGS if and only if we are not C++
+# add $CFLAGS if and only if we are not C++/Fortran
 if [[ "$is_cpp" == false && "$is_fortran" == false ]]; then
     comp+=("$CFLAGS")
 fi
