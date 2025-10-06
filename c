@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-## repository at https://github.com/ryanmjacobs/c
-VERSION=v0.15-dev
+# https://github.com/ryanmjacobs/c
+
+readonly VERSION="0.15-dev"
 
 # max cachesize in kilobytes (default=5MB)
 [[ -z "$C_CACHE_SIZE" ]] && C_CACHE_SIZE=$((5*1024))
@@ -10,15 +11,22 @@ if ! [[ "$C_CACHE_SIZE" =~ ^[0-9]*$ ]]; then
 fi
 
 help_msg() {
-    >&$1 echo "Usage: $(basename "$0") <file.c ... | compiler_options ...> [program_arguments]"
-    >&$1 echo "       $(basename "$0") --clear-cache"
-    >&$1 echo 'Execute C programs from the command line.'
-    >&$1 echo
-    >&$1 echo '  Ex: c main.c'
-    >&$1 echo '  Ex: c main.c arg1 arg2'
-    >&$1 echo "  Ex: c 'main.c other.c' arg1 arg2"
-    >&$1 echo "  Ex: c 'main.c -lncurses' arg1 arg2"
-    >&$1 echo
+    >&$1 cat <<EOM
+Usage: $(basename "$0") [OPTIONS] <FILE.C> [COMPILER_FLAGS] [ARGUMENTS]
+
+Execute C programs from the command line.
+___
+
+EXAMPLES
+  $ c main.c
+  $ c main.c arg1 arg2
+  $ c 'main.c other.c' arg1 arg2
+  $ c 'main.c -lncurses' arg1 arg2
+___
+
+OPTIONS
+  --clear-cache  Clear compilation cache.
+EOM
 }
 
 cleanup() {
@@ -35,6 +43,7 @@ cleanup() {
 
 # Handle --help, -h, and zero args
 [[ "$1" == "--help" || "$1" == "-h" ]] && { help_msg 1; exit 0; }
+[[ "$1" == "--version" ]] && { echo "$VERSION"; exit 0; }
 [[ "$#" -lt 1 ]] && { help_msg 2; exit 2; }
 
 # get cache location
@@ -102,7 +111,7 @@ done
 # disable caching if we don't locate a hashing function
 [ "$hash_func" == : ] && C_CACHE_SIZE=0
 
-# determine if we are C, C++ or Fortran, then use appropriate flags
+# determine if we are C, C++, or Fortran; then, use appropriate flags
 is_cpp=false
 is_fortran=false
 for f in "$fname" "${comp[@]}"; do

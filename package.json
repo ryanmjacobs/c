@@ -1,8 +1,11 @@
 {
   "name": "c",
-  "version": "v0.15-dev",
-  "description": "Compile and execute C \'scripts\' in one go!",
-  "global": "true",
+  "version": "0.15-dev",
+  "description": "Compile and execute C 'scripts' in one go!",
+  "repository": "github:ryanmjacobs/c",
+  "license": "MIT",
+
   "install": "mkdir -p ${PREFIX:-/usr}/bin; install -m 775 c ${PREFIX:-/usr}/bin",
-  "scripts": [ "c" ]
+  "bin": "./c",
+  "preferGlobal": true
 }
