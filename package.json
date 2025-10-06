@@ -1,6 +1,6 @@
 {
   "name": "c",
-  "version": "0.15.1-dev",
+  "version": "0.15.1",
   "description": "Compile and execute C 'scripts' in one go!",
   "repository": "github:ryanmjacobs/c",
   "license": "MIT",

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # https://github.com/ryanmjacobs/c
 
-readonly VERSION="0.15.1-dev"
+readonly VERSION="0.15.1"
 
 # max cachesize in kilobytes (default=5MB)
 [[ -z "$C_CACHE_SIZE" ]] && C_CACHE_SIZE=$((5*1024))
@@ -14,7 +14,7 @@ help_msg() {
     >&$1 cat <<EOM
 Usage: $(basename "$0") [OPTIONS] <FILE.C> [COMPILER_FLAGS] [ARGUMENTS]
 
-Execute C programs from the command line.
+Compile and execute C "scripts" in one go!
 ___
 
 EXAMPLES
