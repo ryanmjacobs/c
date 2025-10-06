@@ -119,7 +119,7 @@ for f in "$fname" "${comp[@]}"; do
     [[ ! -f "$f" ]] && continue
 
     # if one file has a C++ extension, then the whole set is C++
-    if [[ "$f" =~ \.(cc|c\+\+|cpp|cxx)$ ]]; then
+    if [[ "${f@L}" =~ \.(cc|c\+\+|cpp|cxx)$ ]]; then
         is_cpp=true
 
         if hash "$CXX" &>/dev/null; then
@@ -135,21 +135,16 @@ for f in "$fname" "${comp[@]}"; do
     fi
 
     # if one file has a Fortran extension, then the whole set is Fortran
-    # We have to check case insensitive because many fortran suffixes are
-    # uppercase
-    shopt -s nocasematch
-    if [[ "$f" =~ \.(f|f95|f77|f90|f03|f15|for)$ ]]; then
+    if [[ "${f@L}" =~ \.(f|f95|f77|f90|f03|f15|for)$ ]]; then
       is_fortran=true
-      CC="${FC}"
-      comp+=(${FCFLAGS})
+      CC="$FC"
+      comp+=("$FCFLAGS")
     fi
-    shopt -u nocasematch
-
 done
 
 # add $CFLAGS if and only if we are not C++
-if [[ "$is_cpp" == false && "${is_fortran}" == false ]]; then
-    comp+=($CFLAGS)
+if [[ "$is_cpp" == false && "$is_fortran" == false ]]; then
+    comp+=("$CFLAGS")
 fi
 
 # add preprocessor flags
