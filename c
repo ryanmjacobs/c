@@ -116,7 +116,7 @@ is_cpp=false
 is_fortran=false
 for f in "$fname" "${comp[@]}"; do
     # only examine files
-    [[ ! -f "$f" ]] && continue
+    [[ -f "$f" ]] || continue
 
     # if one file has a C++ extension, then the whole set is C++
     if [[ "${f@L}" =~ \.(cc|c\+\+|cpp|cxx)$ ]]; then
