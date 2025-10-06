@@ -150,10 +150,20 @@ fi
 # add preprocessor flags
 comp+=("$CPPFLAGS")
 
+# run c preprocessor
+# (strip shebang line)
+# 2025-10-06 currently breaks on C++ files (cannot recognize w/o extension)
+cpp() {
+  local -r file="$1"
+  if test -f "$file"; then
+    awk '!(NR == 1 && /^#!/)' "$file" | command cpp -
+  fi
+}
+
 # hash all of our data
 prehash="$CC ${comp[*]}" # compiler + flags and files
-for f in "${comp[@]}"; do
-    [ -f "$f" ] && prehash+="$f $(cpp "$f" 2>&1)"
+for file in "${comp[@]}"; do
+    prehash+="$file $(cpp "$file")"
 done
 
 # hash everything into one unique identifier, for caching purposes
