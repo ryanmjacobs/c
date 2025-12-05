@@ -1,0 +1,50 @@
+c(1) -- Compile and execute C "scripts" in one go!
+=====================================================
+<!-- vim: set filetype=markdown: -->
+
+## SYNOPSIS
+
+`c` [OPTIONS] \<FILE.C\> [COMPILER\_FLAGS] [ARGUMENTS]
+
+## OPTIONS
+
+* `--clear-cache`:
+  Clear compilation cache.
+* `--help`:
+  Print help message
+* `--version`:
+  Print version
+
+## EXAMPLES
+
+Here is a simple example:
+```c
+#include <stdio.h>
+
+int main(void) {
+    printf("Hello World!\n");
+    return 0;
+}
+```
+
+Run it by typing:
+```bash
+$ c hello.c
+Hello World!
+```
+
+Or, call it from the shebang!
+```c
+#!/usr/bin/c
+#include <stdio.h>
+
+int main(void) {
+    printf("Hello World!\n");
+    return 0;
+}
+```
+```bash
+$ chmod +x hello.c
+$ ./hello.c
+Hello World!
+```

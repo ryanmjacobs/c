@@ -1,0 +1,58 @@
+.\" generated with Ronn-NG/v0.10.1
+.\" http://github.com/apjanke/ronn-ng/tree/0.10.1
+.TH "C" "1" "December 2025" ""
+.SH "NAME"
+\fBc\fR \- Compile and execute C "scripts" in one go!
+.SH "SYNOPSIS"
+\fBc\fR \fIOPTIONS\fR <FILE\.C> [COMPILER_FLAGS] [ARGUMENTS]
+.SH "OPTIONS"
+.TP
+\fB\-\-clear\-cache\fR
+Clear compilation cache\.
+.TP
+\fB\-\-help\fR
+Print help message
+.TP
+\fB\-\-version\fR
+Print version
+.SH "EXAMPLES"
+Here is a simple example:
+.IP "" 4
+.nf
+#include <stdio\.h>
+
+int main(void) {
+    printf("Hello World!\en");
+    return 0;
+}
+.fi
+.IP "" 0
+.P
+Run it by typing:
+.IP "" 4
+.nf
+$ c hello\.c
+Hello World!
+.fi
+.IP "" 0
+.P
+Or, call it from the shebang!
+.IP "" 4
+.nf
+#!/usr/bin/c
+#include <stdio\.h>
+
+int main(void) {
+    printf("Hello World!\en");
+    return 0;
+}
+.fi
+.IP "" 0
+.IP "" 4
+.nf
+$ chmod +x hello\.c
+$ \./hello\.c
+Hello World!
+.fi
+.IP "" 0
+
